@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pet finder',
       theme: ThemeData(
-          primarySwatch: Colors.orange,
+          primarySwatch: Colors.green,
           visualDensity: VisualDensity.adaptivePlatformDensity),
       home: const HomePage(),
     );
