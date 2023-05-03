@@ -18,8 +18,16 @@ class _MapWidgetState extends State<MapWidget> {
 
     return Scaffold(
       appBar: AppBar(title: Text("Predicción")),
-      body: GoogleMap(
-        initialCameraPosition: _initialCameraPosition,
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GoogleMap(
+            initialCameraPosition: _initialCameraPosition,
+            mapType: MapType.normal,
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+          ),
+        ),
       ),
     );
   }
