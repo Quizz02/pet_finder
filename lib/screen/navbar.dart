@@ -76,20 +76,8 @@ class _NavBarState extends State<NavBar> {
               }),
           ListTile(
               leading: Icon(Icons.warning),
-              title: Text('Reportar Incidente'),
+              title: Text('Reportar Avistamiento'),
               onTap: () async {
-                // if (!serviceEnabled) {
-                //   serviceEnabled = await location.requestService();
-                //   if (!serviceEnabled) {
-                //     return;
-                //   }
-                // }
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (BuildContext context) => IncidentReport(
-                //               position: camPosition,
-                //             )));
               }),
           Divider(),
           ListTile(
