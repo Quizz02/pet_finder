@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pet_finder/screen/homepage.dart';
-import 'package:pet_finder/screen/prediction.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pet_finder/screen/homepage.dart';
 import 'package:pet_finder/screen/prediction.dart';
+
+import 'community.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -51,10 +52,10 @@ class _NavBarState extends State<NavBar> {
               leading: Icon(Icons.groups),
               title: Text('Comunidad'),
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (BuildContext context) => ComunityFeed()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Community()));
               }),
           ListTile(
               leading: Icon(Icons.favorite),
@@ -77,8 +78,7 @@ class _NavBarState extends State<NavBar> {
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Reportar Avistamiento'),
-              onTap: () async {
-              }),
+              onTap: () async {}),
           Divider(),
           ListTile(
             leading: Icon(Icons.settings),

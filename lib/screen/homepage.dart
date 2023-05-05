@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pet_finder/widgets/report_card.dart';
 
 import 'navbar.dart';
 
@@ -54,9 +53,24 @@ class _HomePageState extends State<HomePage> {
     _getLocation();
     return Scaffold(
       drawer: NavBar(),
-      appBar: AppBar(title: Text("Inicio")),
+      appBar: AppBar(title: const Text("Inicio")),
       body: Container(
-        child: Text("Inicio"),
+        child: Column(children: [
+          SizedBox(
+            height: 20,
+          ),
+          Title(
+              color: Colors.green,
+              child: Text(
+                'Publicacion más popular de la semana',
+                style:
+                    TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              )),
+          SizedBox(
+            height: 15,
+          ),
+          ReportCard()
+        ]),
       ),
     );
   }

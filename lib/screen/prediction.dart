@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pet_finder/widgets/map_widget.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+import '../models/report_prediction.dart';
 
 class Prediction extends StatefulWidget {
   const Prediction({super.key});
@@ -11,33 +15,59 @@ class Prediction extends StatefulWidget {
 }
 
 class _PredictionState extends State<Prediction> {
+  double lat = 0;
+  double long = 0;
+  LatLng pos = LatLng(0, 0);
+  bool isLoading = true;
 
-  /*Future<List<ReportPrediction>> _getReportes() async {
-    var url = Uri.parse("https://fastapi-production-2d89.up.railway.app/prediction");
+  Future<List<ReportPrediction>> _getReportes() async {
+    var url =
+        Uri.parse("https://web-production-c0e3.up.railway.app/predictions");
     final response = await http.get(url);
-    var lastPrediction = json.decode(response.body);
+    var body = json.decode(response.body);
+
+    List<ReportPrediction> reportes = [];
 
     if (response.statusCode == 200) {
       setState(() {
-        predictionList = lastPrediction;
-        robo = double.parse(predictionList[predictionList.length-1]["robo"]) * 100;
-        roboAgravado = double.parse(predictionList[predictionList.length-1]["robo agravado"]) * 100;
-        hurto = double.parse(predictionList[predictionList.length-1]["hurto"]) * 100;
-        hurtoAgravado = double.parse(predictionList[predictionList.length-1]["hurto agravado"]) * 100;
-        homicidio = double.parse(predictionList[predictionList.length-1]["homicidio calificado - asesinato"]) * 100;
-        microcomercializacion = double.parse(predictionList[predictionList.length-1]["microcomercializacion de drogas"]) * 100;
+        // isLoading = true;
+        lat = body[1]["Latitud"];
+        long = body[1]["Longitud"];
+        lat = lat * -1;
+        long = long * -1;
+        pos = LatLng(lat, long);
+        isLoading = false;
       });
-      print('Success');
+      print('antes del print');
+      print(lat);
+      print(long);
+      print(pos);
     } else {
       throw Exception("Connection Failed");
     }
     throw Exception("Connection Made");
-  }*/
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getReportes();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('build');
+    print(pos);
     return Scaffold(
-      body: MapWidget(),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            )
+          : MapWidget(
+              pos: pos,
+            ),
     );
   }
 }
