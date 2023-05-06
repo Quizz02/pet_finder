@@ -45,12 +45,20 @@ class _MapWidgetState extends State<MapWidget> {
       appBar: AppBar(title: const Text("Predicción")),
       body: Container(
         child: GoogleMap(
-          initialCameraPosition: _initialCameraPosition,
-          mapType: MapType.normal,
-          myLocationButtonEnabled: true,
-          myLocationEnabled: true,
-          markers: Set<Marker>.of(markers),
-        ),
+            initialCameraPosition: _initialCameraPosition,
+            mapType: MapType.normal,
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            markers: Set<Marker>.of(markers),
+            circles: {
+              Circle(
+                  circleId: CircleId("1"),
+                  center: markers.first.position,
+                  radius: 400,
+                  strokeWidth: 2,
+                  fillColor: Color(0xFF006491).withOpacity(0.2),
+                  strokeColor: Colors.blueAccent),
+            }),
       ),
     );
   }

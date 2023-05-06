@@ -257,7 +257,7 @@ class _ReportCardState extends State<ReportCard> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               child: Text(
-                '30/08/2022',
+                '06/05/2023',
                 style: TextStyle(
                   fontSize: 12,
                 ),

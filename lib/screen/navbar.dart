@@ -38,16 +38,6 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
           ),
-          // ListTile(
-          //   leading: Icon(Icons.house),
-          //   title: Text('Inicio'),
-          //   onTap: () {
-          //     Navigator.pop(context);
-
-          //     Navigator.of(context).push(
-          //         MaterialPageRoute(builder: (context) => const HomePage()));
-          //   },
-          // ),
           ListTile(
               leading: Icon(Icons.groups),
               title: Text('Comunidad'),
@@ -60,12 +50,7 @@ class _NavBarState extends State<NavBar> {
           ListTile(
               leading: Icon(Icons.favorite),
               title: Text('Mis Reportes'),
-              onTap: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (BuildContext context) => MyReports(user: user,)));
-              }),
+              onTap: () {}),
           ListTile(
               leading: Icon(Icons.notification_important),
               title: Text('Predicción'),
@@ -88,14 +73,7 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: Icon(Icons.sensor_door_outlined),
             title: Text('Cerrar Sesión'),
-            onTap: () async {
-              // await AuthMethods().signOut();
-              // Navigator.of(context).pushReplacement(
-              //   MaterialPageRoute(
-              //     builder: (context) => const LoginScreen(),
-              //   ),
-              // );
-            },
+            onTap: () async {},
           ),
         ],
       ),
