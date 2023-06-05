@@ -12,7 +12,13 @@ class _CommunityState extends State<Community> {
   Widget build(BuildContext context) {
     // final StorageMethods storage = StorageMethods();
     return Scaffold(
-        appBar: AppBar(title: const Text('Comunidad')),
+        appBar: AppBar(
+          title: const Text(
+            'Comunidad',
+            style: TextStyle(color: Colors.white),
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         body: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) => ReportCard(),

@@ -1,7 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pet_finder/widgets/report_card.dart';
-
 import 'navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,27 +51,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _getLocation();
-    return Scaffold(
-      drawer: NavBar(),
-      appBar: AppBar(title: const Text("Inicio")),
-      body: Container(
-        child: Column(children: [
-          SizedBox(
-            height: 20,
+    return WillPopScope(
+      child: Scaffold(
+        drawer: NavBar(),
+        appBar: AppBar(
+          title: const Text(
+            "Inicio",
+            style: TextStyle(color: Colors.white),
           ),
-          Title(
-              color: Colors.green,
-              child: Text(
-                'Publicacion más popular de la semana',
-                style:
-                    TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-              )),
-          SizedBox(
-            height: 15,
-          ),
-          ReportCard()
-        ]),
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
+        body: Container(
+          child: Column(children: [
+            SizedBox(
+              height: 20,
+            ),
+            Title(
+                color: Colors.green,
+                child: Text(
+                  'Publicacion más popular de la semana',
+                  style: TextStyle(
+                      color: Colors.teal.shade400, fontWeight: FontWeight.bold),
+                )),
+            SizedBox(
+              height: 15,
+            ),
+            ReportCard()
+          ]),
+        ),
       ),
+      onWillPop: () => exit(0),
     );
   }
 }

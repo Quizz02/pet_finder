@@ -20,9 +20,8 @@ class _PredictionState extends State<Prediction> {
 
   Future<List<ReportPrediction>> _getReportes() async {
     var url =
-        Uri.parse("https://web-production-c0e3.up.railway.app/predictions");
+        Uri.parse("https://web-production-bbc0.up.railway.app/predictions");
     final response = await http.get(url);
-
     List<dynamic> jsonArray = json.decode(response.body);
     var lastObject = jsonArray.last;
 

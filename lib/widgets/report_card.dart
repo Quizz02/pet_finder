@@ -91,7 +91,7 @@ class _ReportCardState extends State<ReportCard> {
                     width: double.infinity,
                     child: RichText(
                       text: const TextSpan(
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(color: Colors.teal),
                           children: [
                             TextSpan(
                               text: '10 likes',
@@ -158,7 +158,7 @@ class _ReportCardState extends State<ReportCard> {
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     child: const Icon(Icons.thumb_up,
-                        color: Colors.green, size: 120),
+                        color: Colors.teal, size: 120),
                     isAnimating: isLikeAnimating,
                     duration: const Duration(
                       milliseconds: 400,

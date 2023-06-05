@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
 
 import 'community.dart';
@@ -73,7 +74,10 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: Icon(Icons.sensor_door_outlined),
             title: Text('Cerrar Sesión'),
-            onTap: () async {},
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
           ),
         ],
       ),

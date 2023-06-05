@@ -42,7 +42,13 @@ class _MapWidgetState extends State<MapWidget> {
         CameraPosition(target: LatLng(-12.121474, -77.029754), zoom: 15);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Predicción")),
+      appBar: AppBar(
+        title: const Text(
+          'Predicción',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: Container(
         child: GoogleMap(
             initialCameraPosition: _initialCameraPosition,

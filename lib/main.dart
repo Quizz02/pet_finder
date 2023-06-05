@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/screen/homepage.dart';
+import 'package:pet_finder/screen/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pet finder',
       theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: primary,
+          primaryColor: Colors.teal,
+          textTheme: TextTheme(),
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
