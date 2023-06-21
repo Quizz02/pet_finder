@@ -32,11 +32,10 @@ class _PredictionState extends State<Prediction> {
         // isLoading = true;
         lat = lastObject["Latitud"];
         long = lastObject["Longitud"];
-        lat = lat * -1;
-        long = long * -1;
         pos = LatLng(lat, long);
         isLoading = false;
       });
+      print("posicion: " + lat.toString() + " " + long.toString());
     } else {
       throw Exception("Connection Failed");
     }
