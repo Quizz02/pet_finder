@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/screen/homepage.dart';
+import 'package:pet_finder/screen/registration.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -64,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final loginButton = Material(
       // elevation: 5,
+      borderRadius: BorderRadius.circular(30),
       color: Colors.white,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(15, 15, 20, 15),
@@ -138,10 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text("¿No tienes una cuenta? "),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (BuildContext context) => RegistrationScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          RegistrationScreen()));
                             },
                             child: Text(
                               "Regístrate",
