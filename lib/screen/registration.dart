@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pet_finder/resources/auth_methods.dart';
 import '../colors.dart';
 import 'homepage.dart';
 import 'login.dart';
@@ -146,8 +147,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(10, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          null;
+        onPressed: () async {
+          String res = await AuthMethods().signUpUser(
+              email: emailEditingController.text,
+              password: passwordEditingController.text,
+              firstname: firstNameEditingController.text,
+              lastname: lastNameEditingController.text);
+          print(res);
         },
         child: Text(
           "Regístrate",
