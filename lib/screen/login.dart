@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
+import 'package:pet_finder/resources/auth_methods.dart';
 import 'package:pet_finder/screen/homepage.dart';
 import 'package:pet_finder/screen/registration.dart';
+import 'package:pet_finder/utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -22,6 +24,17 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pop(context);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+  }
+
+  void loginUser() async {
+    String res = await AuthMethods().loginUser(
+        email: emailController.text, password: passwordController.text);
+
+    if (res == "Success") {
+      print(res);
+    } else {
+      showSnackbar(res, context);
+    }
   }
 
   @override
@@ -64,16 +77,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final loginButton = Material(
-      // elevation: 5,
       borderRadius: BorderRadius.circular(30),
       color: Colors.white,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(15, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
-        },
+        // onPressed: () {
+        //   //loginUser;
+        //   Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (context) => HomePage()));
+        // },
+        onPressed: loginUser,
         child: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(
