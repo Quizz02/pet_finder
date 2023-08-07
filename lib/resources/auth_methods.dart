@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_finder/models/pet_lover.dart' as model;
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -13,13 +14,14 @@ class AuthMethods {
     required String password,
     required String firstname,
     required String lastname,
+    required DateTime createdAt,
     // required Uint8List file,
     // required DateTime date,
   }) async {
     String res = "Ocurrió algún error";
     try {
-      DateTime date;
-      date = DateTime.now();
+      // DateTime date;
+      // date = DateTime.now();
 
       if (email.isNotEmpty ||
           password.isNotEmpty ||
@@ -30,14 +32,17 @@ class AuthMethods {
             email: email, password: password);
         print(cred.user!.uid);
 
+        model.PetLover petlover = model.PetLover(
+            email: email,
+            uid: cred.user!.uid,
+            firstname: firstname,
+            lastname: lastname,
+            createdAt: createdAt);
+
         //add user to database
-        _firestore.collection('users').doc(cred.user!.uid).set({
-          'firstname': firstname,
-          'lastname': lastname,
-          'uid': cred.user!.uid,
-          'email': email,
-          'createdAt': date,
-        });
+        await _firestore.collection('users').doc(cred.user!.uid).set(
+              petlover.toJson(),
+            );
 
         res = "Success";
       }

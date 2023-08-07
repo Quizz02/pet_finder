@@ -27,14 +27,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
     String res = await AuthMethods().loginUser(
         email: emailController.text, password: passwordController.text);
 
     if (res == "Success") {
-      print(res);
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
     } else {
       showSnackbar(res, context);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -91,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: primary,
                 ),
               )
             : Text(

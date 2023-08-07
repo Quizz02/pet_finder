@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
@@ -24,7 +25,28 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.teal,
           textTheme: TextTheme(),
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const LoginScreen();
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Ocurrió un error interno'),
+              );
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.teal,
+              ),
+            );
+          }
+          return const LoginScreen();
+        },
+      ),
     );
   }
 }

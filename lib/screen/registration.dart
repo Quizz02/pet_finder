@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_finder/resources/auth_methods.dart';
 import '../colors.dart';
+import '../utils/utils.dart';
 import 'homepage.dart';
 import 'login.dart';
 
@@ -20,6 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final emailEditingController = new TextEditingController();
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -140,26 +142,51 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
 
+    void signUpUser() async {
+      DateTime date;
+
+      setState(() {
+        _isLoading = true;
+      });
+
+      date = DateTime.now();
+      String res = await AuthMethods().signUpUser(
+          email: emailEditingController.text,
+          password: passwordEditingController.text,
+          firstname: firstNameEditingController.text,
+          lastname: lastNameEditingController.text,
+          createdAt: date);
+
+      if (res != "Success") {
+        showSnackbar(res, context);
+      } else {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomePage()));
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
+
     final signUpButton = Material(
-      // elevation: 5,
       borderRadius: BorderRadius.circular(30),
       color: Colors.teal.shade400,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(10, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () async {
-          String res = await AuthMethods().signUpUser(
-              email: emailEditingController.text,
-              password: passwordEditingController.text,
-              firstname: firstNameEditingController.text,
-              lastname: lastNameEditingController.text);
-          print(res);
-        },
-        child: Text(
-          "Regístrate",
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
+        onPressed: signUpUser,
+        child: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              )
+            : Text(
+                "Regístrate",
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
       ),
     );
 
