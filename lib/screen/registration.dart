@@ -4,7 +4,6 @@ import 'package:pet_finder/resources/auth_methods.dart';
 import '../colors.dart';
 import '../utils/utils.dart';
 import 'homepage.dart';
-import 'login.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -155,7 +154,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           password: passwordEditingController.text,
           firstname: firstNameEditingController.text,
           lastname: lastNameEditingController.text,
-          createdAt: date);
+          createdAt: date,
+          petShelter: false);
 
       if (res != "Success") {
         showSnackbar(res, context);
