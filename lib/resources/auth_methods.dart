@@ -32,6 +32,7 @@ class AuthMethods {
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         print(cred.user!.uid);
+        print('el valor de petshelter en el registro es: $petShelter');
 
         model.User petlover = model.User(
             email: email,
@@ -39,7 +40,7 @@ class AuthMethods {
             firstname: firstname,
             lastname: lastname,
             createdAt: createdAt,
-            petShelter: false);
+            petShelter: petShelter);
 
         //add user to database
         await _firestore.collection('users').doc(cred.user!.uid).set(

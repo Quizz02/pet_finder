@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_finder/resources/auth_methods.dart';
+import 'package:sliding_switch/sliding_switch.dart';
 import '../colors.dart';
 import '../utils/utils.dart';
 import 'homepage.dart';
@@ -21,12 +22,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
   bool _isLoading = false;
+  bool isPetShelter = false;
 
   @override
   Widget build(BuildContext context) {
     String? validatePassword(String value) {
-      if (value.length < 6 && value.isNotEmpty) {
-        return "La contraseña debe 6 caracteres o más";
+      if (value.length < 8 && value.isNotEmpty) {
+        return "La contraseña debe tener 8 caracteres o más";
       }
       return null;
     }
@@ -155,7 +157,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           firstname: firstNameEditingController.text,
           lastname: lastNameEditingController.text,
           createdAt: date,
-          petShelter: false);
+          petShelter: isPetShelter);
 
       if (res != "Success") {
         showSnackbar(res, context);
@@ -244,6 +246,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 30,
                     ),
                     confirmPasswordField,
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SlidingSwitch(
+                      value: true,
+                      textOn: 'Refugio',
+                      textOff: 'Pet Lover',
+                      colorOn: primary,
+                      colorOff: primary,
+                      onChanged: (bool value) {
+                        setState(() {
+                          isPetShelter = value;
+                        });
+                        print('Estado actual del ispetshelter es: $isPetShelter');
+                      },
+                      onDoubleTap: () {},
+                      onSwipe: () {},
+                      onTap: () {},
+                    ),
                     SizedBox(
                       height: 30,
                     ),
