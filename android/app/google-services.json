@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760660641927",
+    "project_id": "pet-finder-project-20efc",
+    "storage_bucket": "pet-finder-project-20efc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760660641927:android:3a7788f36d5182d0771022",
+        "android_client_info": {
+          "package_name": "com.example.pet_finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760660641927-esjecemro974ujbuj3p6bfm8merpl9pu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX5O_GtnKiJUmTCEL09HiNMlD1V9-g1Qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760660641927-esjecemro974ujbuj3p6bfm8merpl9pu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

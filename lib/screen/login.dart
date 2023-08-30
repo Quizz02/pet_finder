@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
+import 'package:pet_finder/resources/auth_methods.dart';
 import 'package:pet_finder/screen/homepage.dart';
+import 'package:pet_finder/screen/registration.dart';
+import 'package:pet_finder/utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,6 +26,24 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.pop(context);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: emailController.text, password: passwordController.text);
+
+    if (res == "Success") {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+    } else {
+      showSnackbar(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -63,19 +86,21 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     final loginButton = Material(
-      // elevation: 5,
+      borderRadius: BorderRadius.circular(30),
       color: Colors.white,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(15, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomePage()));
-        },
+        // onPressed: () {
+        //   //loginUser;
+        //   Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (context) => HomePage()));
+        // },
+        onPressed: loginUser,
         child: _isLoading
             ? const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: primary,
                 ),
               )
             : Text(
@@ -138,10 +163,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text("¿No tienes una cuenta? "),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (BuildContext context) => RegistrationScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          RegistrationScreen()));
                             },
                             child: Text(
                               "Regístrate",
