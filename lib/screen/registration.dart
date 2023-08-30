@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_finder/resources/auth_methods.dart';
@@ -144,13 +145,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
 
     void signUpUser() async {
-      DateTime date;
+      Timestamp date;
 
       setState(() {
         _isLoading = true;
       });
 
-      date = DateTime.now();
+      date = Timestamp.now();
       String res = await AuthMethods().signUpUser(
           email: emailEditingController.text,
           password: passwordEditingController.text,
@@ -259,7 +260,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         setState(() {
                           isPetShelter = value;
                         });
-                        print('Estado actual del ispetshelter es: $isPetShelter');
+                        print(
+                            'Estado actual del ispetshelter es: $isPetShelter');
                       },
                       onDoubleTap: () {},
                       onSwipe: () {},

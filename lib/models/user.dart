@@ -5,7 +5,7 @@ class User {
   final String uid;
   final String firstname;
   final String lastname;
-  final DateTime createdAt;
+  final Timestamp createdAt;
   final bool petShelter;
 
   const User({
@@ -13,7 +13,7 @@ class User {
     required this.uid,
     required this.firstname,
     required this.lastname,
-    required this.createdAt, 
+    required this.createdAt,
     required this.petShelter,
   });
 

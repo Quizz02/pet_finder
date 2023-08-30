@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pet_finder/widgets/report_card.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import 'navbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,8 +15,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String locationMessage = 'Ubicacion actual';
+  bool isLoading = false;
   late String lat;
   late String long;
+
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+
+  addData() async {
+    setState(() {
+      isLoading = true;
+    });
+    UserProvider _userProvider = Provider.of(context, listen: false);
+    await _userProvider.refreshUser();
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   Future<Position> _getLocation() async {
     bool serviceEnabled;

@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
+import 'package:provider/provider.dart';
+import 'package:pet_finder/models/user.dart' as model;
 
+import '../providers/user_provider.dart';
 import 'community.dart';
 
 class NavBar extends StatefulWidget {
@@ -16,19 +21,19 @@ class _NavBarState extends State<NavBar> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Nombre"),
-            accountEmail: Text("Correo"),
+            accountName: Text(user.firstname + ' ' + user.lastname),
+            accountEmail: Text(user.email),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: ClipOval(
