@@ -53,10 +53,15 @@ class _NavBarState extends State<NavBar> {
                     MaterialPageRoute(
                         builder: (BuildContext context) => Community()));
               }),
-          ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Mis Reportes'),
-              onTap: () {}),
+          user.petShelter
+              ? ListTile(
+                  leading: Icon(Icons.favorite),
+                  title: Text('Lista de Reportes Emitidos'),
+                  onTap: () {})
+              : SizedBox(
+                  width: 0,
+                  height: 0,
+                ),
           ListTile(
               leading: Icon(Icons.notification_important),
               title: Text('Predicción'),
@@ -66,16 +71,30 @@ class _NavBarState extends State<NavBar> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Prediction()));
               }),
-          ListTile(
-              leading: Icon(Icons.warning),
-              title: Text('Reportar Avistamiento'),
-              onTap: () async {}),
+          user.petShelter
+              ? SizedBox(
+                  width: 0,
+                  height: 0,
+                )
+              : ListTile(
+                  leading: Icon(Icons.warning),
+                  title: Text('Reportar Avistamiento'),
+                  onTap: () async {}),
+          user.petShelter
+              ? ListTile(
+                  leading: Icon(Icons.warning),
+                  title: Text('Crear Listado de Adopción'),
+                  onTap: () async {})
+              : ListTile(
+                  leading: Icon(Icons.warning),
+                  title: Text('Adopción'),
+                  onTap: () async {}),
           Divider(),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Configuración'),
-            onTap: () => print('Configuración'),
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.settings),
+          //   title: Text('Configuración'),
+          //   onTap: () => print('Configuración'),
+          // ),
           ListTile(
             leading: Icon(Icons.sensor_door_outlined),
             title: Text('Cerrar Sesión'),
