@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pet_finder/screen/add_post_screen.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
 import 'package:provider/provider.dart';
 import 'package:pet_finder/models/user.dart' as model;
 
 import '../providers/user_provider.dart';
+import '../utils/utils.dart';
 import 'community.dart';
+import 'dart:typed_data';
 
 class NavBar extends StatefulWidget {
   @override
@@ -18,10 +22,45 @@ class _NavBarState extends State<NavBar> {
   String username = "";
   String email = "";
   late bool serviceEnabled;
+  Uint8List? _file;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  _selectImage(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('Crear una publicación'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Tomar una foto'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(ImageSource.camera);
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Seleccionar desde galeria'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(ImageSource.gallery);
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -44,6 +83,16 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
           ),
+          ListTile(
+              leading: Icon(Icons.add),
+              title: Text('Nueva Publicación'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => AddPostScreen()));
+                _selectImage(context);
+              }),
           ListTile(
               leading: Icon(Icons.groups),
               title: Text('Comunidad'),

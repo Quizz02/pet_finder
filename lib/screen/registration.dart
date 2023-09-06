@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/resources/auth_methods.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import '../colors.dart';
@@ -24,6 +25,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final confirmPasswordEditingController = new TextEditingController();
   bool _isLoading = false;
   bool isPetShelter = false;
+  Uint8List? _image;
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameEditingController.dispose();
+    lastNameEditingController.dispose();
+    emailEditingController.dispose();
+    passwordEditingController.dispose();
+    confirmPasswordEditingController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +177,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           firstname: firstNameEditingController.text,
           lastname: lastNameEditingController.text,
           createdAt: date,
-          petShelter: isPetShelter);
+          petShelter: isPetShelter,
+          file: _image!);
 
       if (res != "Success") {
         showSnackbar(res, context);
@@ -220,13 +240,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                      height: 120,
-                      child: Image.asset(
-                        "assets/logo.png",
-                        fit: BoxFit.contain,
-                      ),
+                    Stack(
+                      children: [
+                        _image != null
+                            ? CircleAvatar(
+                                radius: 64,
+                                backgroundImage: MemoryImage(_image!),
+                              )
+                            : const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 64,
+                                backgroundImage: NetworkImage(
+                                  'https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-gris.png',
+                                ),
+                              ),
+                        Positioned(
+                          bottom: -10,
+                          left: 80,
+                          child: IconButton(
+                            onPressed: selectImage,
+                            icon: const Icon(Icons.add_a_photo),
+                          ),
+                        )
+                      ],
                     ),
+                    // SizedBox(
+                    //   height: 120,
+                    //   child: Image.asset(
+                    //     "assets/logo.png",
+                    //     fit: BoxFit.contain,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 30,
                     ),

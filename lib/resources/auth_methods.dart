@@ -18,25 +18,27 @@ class AuthMethods {
   }
 
   // sign up
-  Future<String> signUpUser(
-      {required String email,
-      required String password,
-      required String firstname,
-      required String lastname,
-      required Timestamp createdAt,
-      required bool petShelter
-      // required Uint8List file,
-      // required DateTime date,
-      }) async {
+  Future<String> signUpUser({
+    required String email,
+    required String password,
+    required String firstname,
+    required String lastname,
+    required Timestamp createdAt,
+    required bool petShelter,
+    required Uint8List file,
+    // required DateTime date,
+  }) async {
     String res = "Ocurrió algún error";
     try {
       // DateTime date;
       // date = DateTime.now();
 
       if (email.isNotEmpty ||
-          password.isNotEmpty ||
-          firstname.isNotEmpty ||
-          lastname.isNotEmpty) {
+              password.isNotEmpty ||
+              firstname.isNotEmpty ||
+              lastname.isNotEmpty
+          //file != null
+          ) {
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
@@ -44,12 +46,16 @@ class AuthMethods {
         print('el valor de petshelter en el registro es: $petShelter');
 
         model.User petlover = model.User(
-            email: email,
-            uid: cred.user!.uid,
-            firstname: firstname,
-            lastname: lastname,
-            createdAt: createdAt,
-            petShelter: petShelter);
+          email: email,
+          uid: cred.user!.uid,
+          firstname: firstname,
+          lastname: lastname,
+          createdAt: createdAt,
+          petShelter: petShelter,
+          followers: [],
+          following: [],
+          //photoUrl: pho
+        );
 
         //add user to database
         await _firestore.collection('users').doc(cred.user!.uid).set(
