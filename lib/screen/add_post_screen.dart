@@ -15,6 +15,15 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
 
+  /*void postImage(String uid, username, String profImage) async {
+    try{
+
+    } catch (e){
+
+    }
+  
+  }*/
+
   _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
@@ -95,7 +104,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.3,
+                width: MediaQuery.of(context).size.width * 0.45,
                 child: TextField(
                   decoration: const InputDecoration(
                     hintText: 'Pon una descripción...',
