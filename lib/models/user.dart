@@ -7,7 +7,7 @@ class User {
   final String lastname;
   final Timestamp createdAt;
   final bool petShelter;
-  //final String photoUrl;
+  final String photoUrl;
   final List following;
   final List followers;
 
@@ -18,7 +18,7 @@ class User {
       required this.lastname,
       required this.createdAt,
       required this.petShelter,
-      //required this.photoUrl,
+      required this.photoUrl,
       required this.following,
       required this.followers});
 
@@ -29,7 +29,7 @@ class User {
         'email': email,
         'createdAt': createdAt,
         'petShelter': petShelter,
-        //'photoUrl': photoUrl,
+        'photoUrl': photoUrl,
         'following': following,
         'followers': followers
       };
@@ -44,7 +44,7 @@ class User {
       uid: snapshot['uid'],
       createdAt: snapshot['createdAt'],
       petShelter: snapshot['petShelter'],
-      //photoUrl: snapshot['photoUrl'],
+      photoUrl: snapshot['photoUrl'],
       following: snapshot['following'],
       followers: snapshot['followers'],
     );

@@ -76,10 +76,7 @@ class _NavBarState extends State<NavBar> {
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: ClipOval(
-                child: Image.network(
-                    'https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-gris.png',
-                    color: Colors.grey,
-                    fit: BoxFit.cover),
+                child: Image.network(user.photoUrl, fit: BoxFit.cover),
               ),
             ),
           ),

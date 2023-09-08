@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/models/user.dart' as model;
+import 'package:pet_finder/resources/storage_methods.dart';
+import 'package:pet_finder/utils/utils.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -45,17 +47,19 @@ class AuthMethods {
         print(cred.user!.uid);
         print('el valor de petshelter en el registro es: $petShelter');
 
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
+
         model.User petlover = model.User(
-          email: email,
-          uid: cred.user!.uid,
-          firstname: firstname,
-          lastname: lastname,
-          createdAt: createdAt,
-          petShelter: petShelter,
-          followers: [],
-          following: [],
-          //photoUrl: pho
-        );
+            email: email,
+            uid: cred.user!.uid,
+            firstname: firstname,
+            lastname: lastname,
+            createdAt: createdAt,
+            petShelter: petShelter,
+            followers: [],
+            following: [],
+            photoUrl: photoUrl);
 
         //add user to database
         await _firestore.collection('users').doc(cred.user!.uid).set(
@@ -63,6 +67,10 @@ class AuthMethods {
             );
 
         res = "Success";
+      }
+    } on FirebaseException catch (e) {
+      if (e.code == 'invalid-email') {
+        res = 'El correo no tiene un formato válido';
       }
     } catch (e) {
       res = e.toString();
