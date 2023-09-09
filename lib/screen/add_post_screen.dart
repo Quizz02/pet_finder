@@ -18,9 +18,12 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   final TextEditingController _descriptionController = TextEditingController();
-  bool _hasImage = false;
+  bool _isLoading = false;
 
   void postImage(String uid, firstname, lastname, String profImage) async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       String res = await FirestoreMethods().uploadPost(
           _descriptionController.text,
@@ -31,9 +34,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
           profImage);
 
       if (res == 'success') {
+        setState(() {
+          _isLoading = false;
+        });
         showSnackbar('Publicado!', context);
+        clearImage();
       } else {
         showSnackbar(res, context);
+        setState(() {
+          _isLoading = false;
+        });
       }
     } catch (e) {
       showSnackbar(e.toString(), context);
@@ -66,13 +76,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   Uint8List file = await pickImage(ImageSource.gallery);
                   setState(() {
                     _file = file;
-                    _hasImage = true;
                   });
                 },
               ),
             ],
           );
         });
+  }
+
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
   }
 
   @override
@@ -90,6 +105,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
           )
         : Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: clearImage,
+              ),
               title: const Text(
                 'Nueva Publicación',
                 style: TextStyle(color: Colors.white),
@@ -107,46 +126,49 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             body: Column(
               children: [
-                SizedBox(
-                  height: 10,
+                _isLoading ? const LinearProgressIndicator() : Padding(
+                  padding: EdgeInsets.only(top: 0),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        user.photoUrl,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      child: TextField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                          hintText: 'Pon una descripción...',
-                          border: InputBorder.none,
-                        ),
-                        maxLines: 8,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 45,
-                      width: 45,
-                      child: AspectRatio(
-                        aspectRatio: 487 / 451,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: MemoryImage(_file!),
-                            fit: BoxFit.fill,
-                            alignment: FractionalOffset.topCenter,
-                          )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          user.photoUrl,
                         ),
                       ),
-                    ),
-                    const Divider()
-                  ],
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: TextField(
+                          controller: _descriptionController,
+                          decoration: const InputDecoration(
+                            hintText: 'Pon una descripción...',
+                            border: InputBorder.none,
+                          ),
+                          maxLines: 8,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 45,
+                        width: 45,
+                        child: AspectRatio(
+                          aspectRatio: 487 / 451,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: MemoryImage(_file!),
+                              fit: BoxFit.fill,
+                              alignment: FractionalOffset.topCenter,
+                            )),
+                          ),
+                        ),
+                      ),
+                      const Divider()
+                    ],
+                  ),
                 )
               ],
             ),

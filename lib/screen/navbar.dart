@@ -88,7 +88,7 @@ class _NavBarState extends State<NavBar> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => AddPostScreen()));
-                _selectImage(context);
+                //_selectImage(context);
               }),
           ListTile(
               leading: Icon(Icons.groups),
