@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:pet_finder/models/user.dart' as model;
 import 'package:pet_finder/resources/storage_methods.dart';
-import 'package:pet_finder/utils/utils.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,9 +30,6 @@ class AuthMethods {
   }) async {
     String res = "Ocurrió algún error";
     try {
-      // DateTime date;
-      // date = DateTime.now();
-
       if (email.isNotEmpty ||
               password.isNotEmpty ||
               firstname.isNotEmpty ||

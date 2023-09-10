@@ -264,13 +264,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         )
                       ],
                     ),
-                    // SizedBox(
-                    //   height: 120,
-                    //   child: Image.asset(
-                    //     "assets/logo.png",
-                    //     fit: BoxFit.contain,
-                    //   ),
-                    // ),
                     SizedBox(
                       height: 30,
                     ),

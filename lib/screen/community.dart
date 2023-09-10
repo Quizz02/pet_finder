@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/report_card.dart';
@@ -10,7 +11,6 @@ class Community extends StatefulWidget {
 class _CommunityState extends State<Community> {
   @override
   Widget build(BuildContext context) {
-    // final StorageMethods storage = StorageMethods();
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -19,9 +19,23 @@ class _CommunityState extends State<Community> {
           ),
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) => ReportCard(),
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => ReportCard(
+                snap: snapshot.data!.docs[index].data(),
+              ),
+            );
+          },
         ));
   }
 }
