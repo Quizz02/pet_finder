@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/providers/user_provider.dart';
-import 'package:pet_finder/screen/homepage.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:provider/provider.dart';
 

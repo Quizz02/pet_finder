@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'like_animation.dart';
 
 class ReportCard extends StatefulWidget {
-  const ReportCard({super.key});
+  final snap;
+  const ReportCard({
+    Key? key,
+    required this.snap,
+  }) : super(key: key);
 
   @override
   State<ReportCard> createState() => _ReportCardState();
@@ -13,7 +18,6 @@ class _ReportCardState extends State<ReportCard> {
 
   @override
   Widget build(BuildContext context) {
-    // final User user = Provider.of<UserProvider>(context).getUser;
     return Card(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -26,9 +30,7 @@ class _ReportCardState extends State<ReportCard> {
                 children: [
                   CircleAvatar(
                     radius: 16,
-                    backgroundImage: NetworkImage(
-                      'https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-gris.png',
-                    ),
+                    backgroundImage: NetworkImage(widget.snap['profImage']),
                     backgroundColor: Colors.white,
                   ),
                   Expanded(
@@ -37,9 +39,11 @@ class _ReportCardState extends State<ReportCard> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            'John' + ' Doe',
+                            widget.snap['firstname'] +
+                                ' ' +
+                                widget.snap['lastname'],
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -90,26 +94,11 @@ class _ReportCardState extends State<ReportCard> {
                   Container(
                     width: double.infinity,
                     child: RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                           style: TextStyle(color: Colors.teal),
                           children: [
                             TextSpan(
-                              text: '10 likes',
-                            ),
-                          ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: RichText(
-                      text: const TextSpan(
-                          style: TextStyle(color: Colors.grey),
-                          children: [
-                            TextSpan(
-                              text: 'Place reference',
+                              text: '${widget.snap['likes'].length} likes',
                             ),
                           ]),
                     ),
@@ -123,7 +112,7 @@ class _ReportCardState extends State<ReportCard> {
                         .titleSmall!
                         .copyWith(fontWeight: FontWeight.w800),
                     child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id volutpat dolor. Cras arcu quam, facilisis ut odio eu, ullamcorper sodales elit.',
+                      widget.snap['description'],
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
@@ -149,7 +138,7 @@ class _ReportCardState extends State<ReportCard> {
                   height: MediaQuery.of(context).size.height * 0.35,
                   width: double.infinity,
                   child: Image.network(
-                    "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png",
+                    widget.snap['postUrl'],
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -234,9 +223,9 @@ class _ReportCardState extends State<ReportCard> {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ))),
-                        icon: Icon(Icons.send),
-                        label: Text('Compartir')),
-                  )
+                        icon: Icon(Icons.star),
+                        label: Text('Calificar')),
+                  ),
                 ],
               ),
             ),
@@ -248,6 +237,7 @@ class _ReportCardState extends State<ReportCard> {
                 child: Text(
                   'Ver todos los 20 comentarios',
                   style: TextStyle(
+                    color: Colors.grey,
                     fontSize: 14,
                   ),
                 ),
@@ -257,8 +247,11 @@ class _ReportCardState extends State<ReportCard> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               child: Text(
-                '06/05/2023',
+                DateFormat.yMMMd().format(
+                  widget.snap['createdAt'].toDate(),
+                ),
                 style: TextStyle(
+                  color: Colors.grey,
                   fontSize: 12,
                 ),
               ),
