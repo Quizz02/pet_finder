@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/screen/add_post_screen.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
+import 'package:pet_finder/screen/send_report.dart';
 import 'package:provider/provider.dart';
 import 'package:pet_finder/models/user.dart' as model;
 
@@ -135,6 +136,15 @@ class _NavBarState extends State<NavBar> {
                   leading: Icon(Icons.warning),
                   title: Text('Adopción'),
                   onTap: () async {}),
+          ListTile(
+              leading: Icon(Icons.notification_important),
+              title: Text('Consultar Estado de Animal'),
+              onTap: () async {
+                Navigator.pop(context);
+
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SendReport()));
+              }),
           Divider(),
           // ListTile(
           //   leading: Icon(Icons.settings),
