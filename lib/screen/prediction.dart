@@ -13,10 +13,51 @@ class Prediction extends StatefulWidget {
 }
 
 class _PredictionState extends State<Prediction> {
+  String? tipoAnimal;
+  String? tamanio;
+  String? distrito;
+  String? color;
+  double? saludable;
+  double? grave;
+  double? herido;
   double lat = 0;
   double long = 0;
   LatLng pos = LatLng(0, 0);
   bool isLoading = true;
+
+  /*Future<List<ReportPrediction>> _getReportes() async {
+    var url = Uri.parse(
+        "https://web-production-bbc0.up.railway.app/docs/predictions");
+    final response = await http.get(url);
+    List<dynamic> jsonArray = json.decode(response.body);
+    var lastObject = jsonArray.last;
+
+    List<ReportPrediction> reportes = [];
+
+    if (response.statusCode == 200) {
+      setState(() {
+        // isLoading = true;
+        tamanio = lastObject["tamanio"];
+        distrito = lastObject["distrito"];
+        tipoAnimal = lastObject["tipoAnimal"];
+        color = lastObject["color"];
+        saludable = lastObject["saludable"];
+        grave = lastObject["grave"];
+        herido = lastObject["herido"];
+        // pos = LatLng(lat, long);
+        isLoading = false;
+      });
+      print("saludable: " +
+          saludable.toString() +
+          " grave:" +
+          grave.toString() +
+          " herido:" +
+          herido.toString());
+    } else {
+      throw Exception("Connection Failed");
+    }
+    throw Exception("Connection Made");
+  }*/
 
   Future<List<ReportPrediction>> _getReportes() async {
     var url =

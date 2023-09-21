@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 import '../colors.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
@@ -15,19 +14,54 @@ class SendReport extends StatefulWidget {
 }
 
 class _SendReportState extends State<SendReport> {
+  bool _isLoading = false;
+  String? tamanio;
+  String? animal;
+  String? colorPelaje;
+  String? distrito;
+
+  postData(tipoAnimal, tamanio, colorPelaje, distrito) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String res = 'Ocurrio algun error';
+    print(tipoAnimal);
+    print(tamanio);
+    print(colorPelaje);
+    print(distrito);
+    var url =
+        Uri.parse("https://web-production-bbc0.up.railway.app/docs/prediction");
+    try {
+      var response = await http.post(url, body: {
+        "tipoAnimal": tipoAnimal,
+        "tamanio": tamanio,
+        "color": colorPelaje,
+        "distrito": distrito,
+      });
+      //print(response);
+      if (response.statusCode == 200) {
+        res = 'Consulta enviada!';
+      }
+    } catch (e) {
+      print(res.toString());
+    }
+    showSnackbar(res, context);
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).getUser;
     const maxLines = 5;
     const widthDefault = 340.0;
-    String? tamanio;
-    String? animal;
-    String? color;
-    String? distrito;
-    const List tipoAnimal = ['Perro', 'Gato'];
-    const List tamanios = ['Grande', 'Mediano', 'Pequeño'];
-    const List colores = ['Negro', 'Blanco', 'Marron', 'Gris', 'Crema'];
-    const List distritos = [
+    final tipoAnimal = ['Perro', 'Gato'];
+    final tamanios = ['Grande', 'Mediano', 'Pequeño'];
+    final colores = ['Negro', 'Blanco', 'Marron', 'Gris', 'Crema'];
+    final distritos = [
       'Ancón',
       'Ate',
       'Barranco',
@@ -83,6 +117,7 @@ class _SendReportState extends State<SendReport> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(height: 20),
                   Container(
                     width: widthDefault,
                     height: 40,
@@ -101,7 +136,7 @@ class _SendReportState extends State<SendReport> {
                     child: DropdownButtonFormField(
                       isExpanded: true,
                       hint: Text('Seleccione un tipo de animal'),
-                      value: color,
+                      value: animal,
                       iconSize: 30,
                       icon: Icon(
                         Icons.arrow_drop_down,
@@ -116,6 +151,7 @@ class _SendReportState extends State<SendReport> {
                       onChanged: (newValue) {
                         setState(() {
                           animal = newValue as String?;
+                          print(animal);
                         });
                       },
                     ),
@@ -139,7 +175,7 @@ class _SendReportState extends State<SendReport> {
                     child: DropdownButtonFormField(
                       isExpanded: true,
                       hint: Text('Seleccione un color'),
-                      value: color,
+                      value: colorPelaje,
                       iconSize: 30,
                       icon: Icon(
                         Icons.arrow_drop_down,
@@ -153,7 +189,8 @@ class _SendReportState extends State<SendReport> {
                       }).toList(),
                       onChanged: (newValue) {
                         setState(() {
-                          color = newValue as String?;
+                          colorPelaje = newValue as String?;
+                          print(colorPelaje);
                         });
                       },
                     ),
@@ -192,6 +229,7 @@ class _SendReportState extends State<SendReport> {
                         onChanged: (newValue) {
                           setState(() {
                             tamanio = newValue as String?;
+                            print(tamanio);
                           });
                         }),
                   ),
@@ -229,60 +267,31 @@ class _SendReportState extends State<SendReport> {
                         onChanged: (newValue) {
                           setState(() {
                             distrito = newValue as String?;
+                            print(distrito);
                           });
                         }),
                   ),
                   SizedBox(height: 20),
-                  /*Container(
-                    width: widthDefault,
-                    height: 40,
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Referencia del lugar',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: widthDefault,
-                    height: maxLines * 17.0,
-                    child: TextField(
-                      //controller: _referenceController,
-                      maxLines: 3,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                      ),
-                    ),
-                  ),*/
                   SizedBox(height: 20),
                   SizedBox(
                     width: widthDefault,
                     height: 40,
                     child: MaterialButton(
                         color: primary,
-                        child: /*_isLoading
+                        child: _isLoading
                             ? const Center(
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
                                 ),
                               )
-                            :*/
-                            Text(
-                          'Enviar consulta',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
+                            : Text(
+                                'Enviar consulta',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
                         onPressed: () {
-                          //postReport(user.uid, user.firstname, user.lastname);
-                          //create(categoryvalue!, _descriptionController.text, user.firstname, user.lastname, widget.position.latitude, widget.position.longitude, _referenceController.text, user.uid);
+                          postData(animal, tamanio, colorPelaje, distrito);
                         }),
                   ),
                   SizedBox(height: 20),
