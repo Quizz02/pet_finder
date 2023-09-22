@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../models/user.dart';
+import '../providers/user_provider.dart';
+import '../resources/firestore_methods.dart';
 import 'like_animation.dart';
 
 class ReportCard extends StatefulWidget {
@@ -18,6 +22,7 @@ class _ReportCardState extends State<ReportCard> {
 
   @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     return Card(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -124,11 +129,11 @@ class _ReportCardState extends State<ReportCard> {
             ),
             GestureDetector(
               onDoubleTap: () async {
-                // FirestoreMethods().likeReport(
-                //   widget.snap['reportId'],
-                //   user.uid,
-                //   widget.snap['likes'],
-                // );
+                await FirestoreMethods().likePost(
+                  widget.snap['postId'],
+                  user.uid,
+                  widget.snap['likes'],
+                );
                 setState(() {
                   isLikeAnimating = true;
                 });
@@ -167,20 +172,19 @@ class _ReportCardState extends State<ReportCard> {
                 children: [
                   Expanded(
                     child: Container(
-                      // color: widget.snap['likes'].contains(user.uid) ? Color.fromARGB(255, 255, 153, 146) : Colors.white,
-                      color: Colors.white,
+                      color: widget.snap['likes'].contains(user.uid)
+                          ? Color.fromARGB(255, 202, 252, 243)
+                          : Colors.white,
                       child: LikeAnimation(
-                        // isAnimating: widget.snap['likes'].contains(user.uid),
-                        isAnimating: false,
+                        isAnimating: widget.snap['likes'].contains(user.uid),
                         smallLike: true,
                         child: TextButton.icon(
                             onPressed: () async {
-                              // await FirestoreMethods().likeReport(
-                              //   widget.snap['reportId'],
-                              //   user.uid,
-                              //   widget.snap['likes'],
-                              // );
-
+                              await FirestoreMethods().likePost(
+                                widget.snap['postId'],
+                                user.uid,
+                                widget.snap['likes'],
+                              );
                               setState(() {
                                 isLikeAnimating = true;
                               });
