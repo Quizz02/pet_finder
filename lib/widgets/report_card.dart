@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pet_finder/screen/comment_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
@@ -206,7 +207,11 @@ class _ReportCardState extends State<ReportCard> {
                   ),
                   Expanded(
                     child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => CommentScreen(),
+                              ),
+                            ),
                         style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
