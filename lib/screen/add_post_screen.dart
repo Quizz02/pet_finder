@@ -5,7 +5,6 @@ import 'package:pet_finder/providers/user_provider.dart';
 import 'package:pet_finder/resources/firestore_methods.dart';
 import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
 
 class AddPostScreen extends StatefulWidget {
@@ -126,9 +125,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             body: Column(
               children: [
-                _isLoading ? const LinearProgressIndicator() : Padding(
-                  padding: EdgeInsets.only(top: 0),
-                ),
+                _isLoading
+                    ? const LinearProgressIndicator()
+                    : Padding(
+                        padding: EdgeInsets.only(top: 0),
+                      ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
