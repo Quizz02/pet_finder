@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pet_finder/widgets/report_card.dart';
@@ -76,28 +77,34 @@ class _HomePageState extends State<HomePage> {
         drawer: NavBar(),
         appBar: AppBar(
           title: const Text(
-            "Inicio",
+            'Inicio',
             style: TextStyle(color: Colors.white),
           ),
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: Container(
-          child: Column(children: [
-            SizedBox(
-              height: 20,
-            ),
-            Title(
-                color: Colors.green,
-                child: Text(
-                  'Publicacion más popular de la semana',
-                  style: TextStyle(
-                      color: Colors.teal.shade400, fontWeight: FontWeight.bold),
-                )),
-            SizedBox(
-              height: 15,
-            ),
-            //ReportCard()
-          ]),
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Text('No se encontraron datos'),
+              );
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => ReportCard(
+                snap: snapshot.data!.docs[index].data(),
+              ),
+            );
+          },
         ),
       ),
       onWillPop: () => exit(0),

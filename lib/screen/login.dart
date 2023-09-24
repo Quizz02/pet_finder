@@ -22,11 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwordController = new TextEditingController();
   bool _isLoading = false;
 
-  void Navigate() {
+  /*void Navigate() {
     Navigator.pop(context);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-  }
+  }*/
 
   void loginUser() async {
     setState(() {

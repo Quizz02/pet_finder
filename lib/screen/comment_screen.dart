@@ -16,7 +16,7 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -35,7 +35,7 @@ class _CommentScreenState extends State<CommentScreen> {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(user.photoUrl),
+              backgroundImage: NetworkImage(user?.photoUrl ?? ''),
               radius: 18,
             ),
             Expanded(
@@ -44,7 +44,7 @@ class _CommentScreenState extends State<CommentScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                       hintText:
-                          'Comentar como ${user.firstname} ' + user.lastname,
+                          'Comentar como ${user?.firstname ?? ''} ${user?.lastname ?? ''}',
                       border: InputBorder.none),
                 ),
               ),
