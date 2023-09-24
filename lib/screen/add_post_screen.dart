@@ -91,7 +91,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
 
     return _file == null
         ? Scaffold(
@@ -115,8 +115,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               iconTheme: IconThemeData(color: Colors.white),
               actions: [
                 TextButton(
-                    onPressed: () => postImage(
-                        user.uid, user.firstname, user.lastname, user.photoUrl),
+                    onPressed: () => postImage(user?.uid ?? '', user?.firstname,
+                        user?.lastname, user?.photoUrl ?? ''),
                     child: const Text(
                       'Publicar',
                       style: TextStyle(color: Colors.white),
@@ -138,7 +138,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     children: [
                       CircleAvatar(
                         backgroundImage: NetworkImage(
-                          user.photoUrl,
+                          user?.photoUrl ?? '',
                         ),
                       ),
                       SizedBox(

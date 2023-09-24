@@ -66,13 +66,13 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User? user = Provider.of<UserProvider>(context).getUser;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(user.firstname + ' ' + user.lastname),
+            accountName: Text(user!.firstname + ' ' + user.lastname),
             accountEmail: Text(user.email),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
@@ -91,7 +91,7 @@ class _NavBarState extends State<NavBar> {
                         builder: (BuildContext context) => AddPostScreen()));
                 //_selectImage(context);
               }),
-          ListTile(
+          /*ListTile(
               leading: Icon(Icons.groups),
               title: Text('Comunidad'),
               onTap: () {
@@ -99,7 +99,7 @@ class _NavBarState extends State<NavBar> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => Community()));
-              }),
+              }),*/
           user.petShelter
               ? ListTile(
                   leading: Icon(Icons.favorite),
@@ -110,7 +110,7 @@ class _NavBarState extends State<NavBar> {
                   height: 0,
                 ),
           ListTile(
-              leading: Icon(Icons.notification_important),
+              leading: Icon(Icons.location_on),
               title: Text('Predicción'),
               onTap: () async {
                 Navigator.pop(context);
@@ -118,7 +118,7 @@ class _NavBarState extends State<NavBar> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Prediction()));
               }),
-          user.petShelter
+          /*user.petShelter
               ? SizedBox(
                   width: 0,
                   height: 0,
@@ -132,12 +132,13 @@ class _NavBarState extends State<NavBar> {
                   leading: Icon(Icons.warning),
                   title: Text('Crear Listado de Adopción'),
                   onTap: () async {})
-              : ListTile(
-                  leading: Icon(Icons.warning),
-                  title: Text('Adopción'),
-                  onTap: () async {}),
+              : */
           ListTile(
-              leading: Icon(Icons.notification_important),
+              leading: Icon(Icons.warning),
+              title: Text('Listados de Adopcion'),
+              onTap: () async {}),
+          ListTile(
+              leading: Icon(Icons.manage_search),
               title: Text('Consultar Estado de Animal'),
               onTap: () async {
                 Navigator.pop(context);

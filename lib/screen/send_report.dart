@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -26,24 +28,33 @@ class _SendReportState extends State<SendReport> {
     });
 
     String res = 'Ocurrio algun error';
-    print(tipoAnimal);
+    /*print(tipoAnimal);
     print(tamanio);
     print(colorPelaje);
-    print(distrito);
-    var url =
-        Uri.parse("https://web-production-bbc0.up.railway.app/docs/prediction");
+    print(distrito);*/
+    var url = Uri.parse("https://tp2-api.onrender.com/prediction");
     try {
-      var response = await http.post(url, body: {
-        "tipoAnimal": tipoAnimal,
-        "tamanio": tamanio,
+      print('entra al try');
+
+      var body = {
+        "id": "0",
+        "district": distrito,
+        "animalType": tipoAnimal,
+        "size": tamanio,
         "color": colorPelaje,
-        "distrito": distrito,
-      });
-      //print(response);
+      };
+
+      var response = await http.post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode(body));
+
       if (response.statusCode == 200) {
         res = 'Consulta enviada!';
+        print(response.body);
       }
+      print(response.body);
     } catch (e) {
+      print(e);
       print(res.toString());
     }
     showSnackbar(res, context);
@@ -55,12 +66,12 @@ class _SendReportState extends State<SendReport> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     const maxLines = 5;
     const widthDefault = 340.0;
     final tipoAnimal = ['Perro', 'Gato'];
     final tamanios = ['Grande', 'Mediano', 'Pequeño'];
-    final colores = ['Negro', 'Blanco', 'Marron', 'Gris', 'Crema'];
+    final colores = ['Negro', 'Blanco', 'Marrón', 'Gris', 'Crema'];
     final distritos = [
       'Ancón',
       'Ate',
