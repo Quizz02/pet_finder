@@ -111,7 +111,7 @@ class _NavBarState extends State<NavBar> {
                 ),
           ListTile(
               leading: Icon(Icons.location_on),
-              title: Text('Predicción'),
+              title: Text('Mapa de Avistamientos'),
               onTap: () async {
                 Navigator.pop(context);
 
