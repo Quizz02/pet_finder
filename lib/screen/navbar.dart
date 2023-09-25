@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/screen/add_post_screen.dart';
+import 'package:pet_finder/screen/adoption_screen.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
 import 'package:pet_finder/screen/send_report.dart';
@@ -72,12 +73,24 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(user!.firstname + ' ' + user.lastname),
-            accountEmail: Text(user.email),
+            accountName: Text('${user?.firstname}'),
+            accountEmail: Text('${user?.email}'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: ClipOval(
-                child: Image.network(user.photoUrl, fit: BoxFit.cover),
+                child: user == null
+                    ? Image.network(
+                        'https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-gris.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      )
+                    : Image.network(
+                        user.photoUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
               ),
             ),
           ),
@@ -100,7 +113,7 @@ class _NavBarState extends State<NavBar> {
                     MaterialPageRoute(
                         builder: (BuildContext context) => Community()));
               }),*/
-          user.petShelter
+          /*user.petShelter
               ? ListTile(
                   leading: Icon(Icons.favorite),
                   title: Text('Lista de Reportes Emitidos'),
@@ -108,7 +121,7 @@ class _NavBarState extends State<NavBar> {
               : SizedBox(
                   width: 0,
                   height: 0,
-                ),
+                ),*/
           ListTile(
               leading: Icon(Icons.location_on),
               title: Text('Mapa de Avistamientos'),
@@ -136,7 +149,12 @@ class _NavBarState extends State<NavBar> {
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Listados de Adopcion'),
-              onTap: () async {}),
+              onTap: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => AdoptionScreen()));
+              }),
           ListTile(
               leading: Icon(Icons.manage_search),
               title: Text('Consultar Estado de Animal'),
