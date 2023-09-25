@@ -26,7 +26,7 @@ class _ReportCardState extends State<ReportCard> {
     final User? user = Provider.of<UserProvider>(context).getUser;
     return user == null
         ? Container(
-            height: 450,
+            height: 490,
             child: Card(
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -236,22 +236,6 @@ class _ReportCardState extends State<ReportCard> {
                               ))),
                               icon: Icon(Icons.chat_bubble),
                               label: Text('Comentar')),
-                        ),
-                        VerticalDivider(
-                          width: 1,
-                          thickness: 1,
-                        ),
-                        Expanded(
-                          child: TextButton.icon(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                              ))),
-                              icon: Icon(Icons.star),
-                              label: Text('Calificar')),
                         ),
                       ],
                     ),
