@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/resources/auth_methods.dart';
@@ -21,12 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
   bool _isLoading = false;
-
-  /*void Navigate() {
-    Navigator.pop(context);
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
-  }*/
 
   void loginUser() async {
     setState(() {

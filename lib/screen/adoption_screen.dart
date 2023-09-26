@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/widgets/adoption_grid.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
+import '../providers/user_provider.dart';
 
 class AdoptionScreen extends StatefulWidget {
   const AdoptionScreen({super.key});
@@ -14,6 +16,7 @@ class AdoptionScreen extends StatefulWidget {
 class _AdoptionScreenState extends State<AdoptionScreen> {
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -22,10 +25,40 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
         ),
         iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AdoptionGrid(),
-      ),
+      floatingActionButton: user?.petShelter != true
+          ? Container()
+          : FloatingActionButton(
+              onPressed: () {
+                print('holaa');
+              },
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+      body: StreamBuilder(
+          stream:
+              FirebaseFirestore.instance.collection('adoptions').snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Text('No se encontraron datos'),
+              );
+            }
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AdoptionGrid(
+                snap: snapshot,
+              ),
+            );
+          }),
     );
   }
 }
