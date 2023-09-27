@@ -109,7 +109,7 @@ class _NavBarState extends State<NavBar> {
                   width: 0,
                   height: 0,
                 ),*/
-          ListTile(
+          /*ListTile(
               leading: Icon(Icons.location_on),
               title: Text('Mapa de Avistamientos'),
               onTap: () async {
@@ -117,7 +117,7 @@ class _NavBarState extends State<NavBar> {
 
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Prediction()));
-              }),
+              }),*/
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Listados de Adopcion'),

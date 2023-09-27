@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_finder/screen/add_adoption_listing.dart';
 import 'package:pet_finder/widgets/adoption_grid.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,11 @@ class _AdoptionScreenState extends State<AdoptionScreen> {
           ? Container()
           : FloatingActionButton(
               onPressed: () {
-                print('holaa');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            AddAdoptionListing()));
               },
               child: Icon(
                 Icons.add,
