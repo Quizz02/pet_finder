@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_finder/models/user.dart';
 import 'package:pet_finder/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class CommentCard extends StatefulWidget {
-  const CommentCard({super.key});
+  final snap;
+  const CommentCard({Key? key, required this.snap}) : super(key: key);
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -18,8 +20,7 @@ class _CommentCardState extends State<CommentCard> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://images.unsplash.com/photo-1682686578023-dc680e7a3aeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'),
+            backgroundImage: NetworkImage(widget.snap['profilePic']),
             radius: 18,
           ),
           Expanded(
@@ -34,12 +35,12 @@ class _CommentCardState extends State<CommentCard> {
                   RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: 'firstname',
+                        text: widget.snap['name'],
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       TextSpan(
-                        text: 'descripcion a ingresar',
+                        text: ' ${widget.snap['text']}',
                         style: const TextStyle(color: Colors.black),
                       ),
                     ]),
@@ -49,19 +50,20 @@ class _CommentCardState extends State<CommentCard> {
                       top: 4,
                     ),
                     child: Text(
-                      '20/05/23',
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                      DateFormat.yMMMd()
+                          .format(widget.snap['datePublished'].toDate()),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                   )
                 ],
               ),
             ),
           ),
-          Container(
+          /*Container(
             padding: const EdgeInsets.all(8),
             child: const Icon(Icons.thumb_up),
-          )
+          )*/
         ],
       ),
     );

@@ -225,7 +225,8 @@ class _ReportCardState extends State<ReportCard> {
                           child: TextButton.icon(
                               onPressed: () => Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => CommentScreen(),
+                                      builder: (context) =>
+                                          CommentScreen(snap: widget.snap),
                                     ),
                                   ),
                               style: ButtonStyle(
@@ -241,13 +242,17 @@ class _ReportCardState extends State<ReportCard> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CommentScreen(snap: widget.snap),
+                      ),
+                    ),
                     child: Container(
                       alignment: Alignment.centerLeft,
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                       child: Text(
-                        'Ver todos los 20 comentarios',
+                        'Ver todos los comentarios',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
