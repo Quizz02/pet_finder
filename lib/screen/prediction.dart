@@ -22,7 +22,7 @@ class _PredictionState extends State<Prediction> {
   double? herido;
   double lat = 0;
   double long = 0;
-  LatLng pos = LatLng(0, 0);
+  LatLng pos = LatLng(-12.122036, -77.029511);
   bool isLoading = true;
 
   /*Future<List<ReportPrediction>> _getReportes() async {
@@ -92,15 +92,17 @@ class _PredictionState extends State<Prediction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading
-          ? const Center(
+      body: /*isLoading
+          ? 
+          const Center(
               child: CircularProgressIndicator(
                 color: Colors.green,
               ),
             )
-          : MapWidget(
-              pos: pos,
-            ),
+          :*/
+          MapWidget(
+        pos: pos,
+      ),
     );
   }
 }

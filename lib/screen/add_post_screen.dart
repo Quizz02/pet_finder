@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/providers/user_provider.dart';
 import 'package:pet_finder/resources/firestore_methods.dart';
 import 'package:pet_finder/utils/utils.dart';
@@ -18,6 +19,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   final TextEditingController _descriptionController = TextEditingController();
   bool _isLoading = false;
+  bool? _isChecked = false;
 
   void postImage(String uid, firstname, lastname, String profImage) async {
     setState(() {
@@ -130,10 +132,33 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     : Padding(
                         padding: EdgeInsets.only(top: 0),
                       ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: _isChecked,
+                      onChanged: (newBool) {
+                        setState(() {
+                          _isChecked = newBool;
+                          print(_isChecked);
+                        });
+                      },
+                      activeColor: primary,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 45),
+                      child: Text(
+                        'Publicar como avistamiento',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
@@ -142,19 +167,19 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         ),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.45,
+                        width: MediaQuery.of(context).size.width * 0.50,
                         child: TextField(
                           controller: _descriptionController,
                           decoration: const InputDecoration(
                             hintText: 'Pon una descripción...',
                             border: InputBorder.none,
                           ),
-                          maxLines: 8,
+                          maxLines: 10,
                         ),
                       ),
                       SizedBox(
-                        height: 45,
-                        width: 45,
+                        height: 40,
+                        width: 40,
                         child: AspectRatio(
                           aspectRatio: 487 / 451,
                           child: Container(
