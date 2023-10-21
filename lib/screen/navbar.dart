@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/screen/add_post_screen.dart';
@@ -12,7 +10,6 @@ import 'package:pet_finder/models/user.dart' as model;
 
 import '../providers/user_provider.dart';
 import '../utils/utils.dart';
-import 'community.dart';
 import 'dart:typed_data';
 
 class NavBar extends StatefulWidget {
@@ -102,17 +99,7 @@ class _NavBarState extends State<NavBar> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => AddPostScreen()));
-                //_selectImage(context);
               }),
-          /*ListTile(
-              leading: Icon(Icons.groups),
-              title: Text('Comunidad'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Community()));
-              }),*/
           /*user.petShelter
               ? ListTile(
                   leading: Icon(Icons.favorite),
@@ -122,6 +109,7 @@ class _NavBarState extends State<NavBar> {
                   width: 0,
                   height: 0,
                 ),*/
+          /*ListTile(
           /*ListTile(
               leading: Icon(Icons.location_on),
               title: Text('Mapa de Avistamientos'),
@@ -146,6 +134,7 @@ class _NavBarState extends State<NavBar> {
                   title: Text('Crear Listado de Adopción'),
                   onTap: () async {})
               : */
+              }),*/
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Listados de Adopcion'),
@@ -165,11 +154,6 @@ class _NavBarState extends State<NavBar> {
                     builder: (context) => const SendReport()));
               }),
           Divider(),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Configuración'),
-          //   onTap: () => print('Configuración'),
-          // ),
           ListTile(
             leading: Icon(Icons.sensor_door_outlined),
             title: Text('Cerrar Sesión'),

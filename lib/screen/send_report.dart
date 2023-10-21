@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +121,6 @@ class _SendReportState extends State<SendReport> {
                           showLegendsInRow: false,
                           legendPosition: LegendPosition.right,
                           showLegends: false,
-                          //legendShape: _BoxShape.circle,
                           legendTextStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -137,7 +135,6 @@ class _SendReportState extends State<SendReport> {
                         totalValue: 100,
                         baseChartColor: Color.fromARGB(255, 218, 217, 217)),
                   ),
-                  //Text('Herido: ' + herido + '%'),
                   Container(
                     //color: Colors.blueAccent,
                     width: 315,
@@ -222,7 +219,6 @@ class _SendReportState extends State<SendReport> {
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).getUser;
-    const maxLines = 5;
     const widthDefault = 340.0;
 
     return Scaffold(
