@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/screen/add_post_screen.dart';
+import 'package:pet_finder/screen/adoption_screen.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
 import 'package:pet_finder/screen/send_report.dart';
@@ -11,7 +10,6 @@ import 'package:pet_finder/models/user.dart' as model;
 
 import '../providers/user_provider.dart';
 import '../utils/utils.dart';
-import 'community.dart';
 import 'dart:typed_data';
 
 class NavBar extends StatefulWidget {
@@ -72,12 +70,24 @@ class _NavBarState extends State<NavBar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(user!.firstname + ' ' + user.lastname),
-            accountEmail: Text(user.email),
+            accountName: Text('${user?.firstname}'),
+            accountEmail: Text('${user?.email}'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: ClipOval(
-                child: Image.network(user.photoUrl, fit: BoxFit.cover),
+                child: user == null
+                    ? Image.network(
+                        'https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-gris.png',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      )
+                    : Image.network(
+                        user.photoUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
               ),
             ),
           ),
@@ -89,18 +99,8 @@ class _NavBarState extends State<NavBar> {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => AddPostScreen()));
-                //_selectImage(context);
               }),
-          /*ListTile(
-              leading: Icon(Icons.groups),
-              title: Text('Comunidad'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => Community()));
-              }),*/
-          user.petShelter
+          /*user.petShelter
               ? ListTile(
                   leading: Icon(Icons.favorite),
                   title: Text('Lista de Reportes Emitidos'),
@@ -108,8 +108,8 @@ class _NavBarState extends State<NavBar> {
               : SizedBox(
                   width: 0,
                   height: 0,
-                ),
-          ListTile(
+                ),*/
+          /*ListTile(
               leading: Icon(Icons.location_on),
               title: Text('Mapa de Avistamientos'),
               onTap: () async {
@@ -117,26 +117,16 @@ class _NavBarState extends State<NavBar> {
 
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Prediction()));
-              }),
-          /*user.petShelter
-              ? SizedBox(
-                  width: 0,
-                  height: 0,
-                )
-              : ListTile(
-                  leading: Icon(Icons.warning),
-                  title: Text('Reportar Avistamiento'),
-                  onTap: () async {}),
-          user.petShelter
-              ? ListTile(
-                  leading: Icon(Icons.warning),
-                  title: Text('Crear Listado de Adopción'),
-                  onTap: () async {})
-              : */
+              }),*/
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Listados de Adopcion'),
-              onTap: () async {}),
+              onTap: () async {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => AdoptionScreen()));
+              }),
           ListTile(
               leading: Icon(Icons.manage_search),
               title: Text('Consultar Estado de Animal'),
@@ -147,11 +137,6 @@ class _NavBarState extends State<NavBar> {
                     builder: (context) => const SendReport()));
               }),
           Divider(),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Configuración'),
-          //   onTap: () => print('Configuración'),
-          // ),
           ListTile(
             leading: Icon(Icons.sensor_door_outlined),
             title: Text('Cerrar Sesión'),

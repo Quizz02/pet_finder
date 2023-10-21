@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pet_finder/models/adoption_card.dart';
 import 'package:pet_finder/models/post.dart';
 import 'package:pet_finder/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
@@ -43,6 +44,47 @@ class FirestoreMethods {
     return res;
   }
 
+  //Subir una mascota para adopcion
+  Future<String> uploadAdoption(
+    String petName,
+    String age,
+    String sex,
+    String contactPhone,
+    String description,
+    Uint8List file,
+    String uid,
+  ) async {
+    String res = 'Ha ocurrido un error';
+
+    try {
+      String petUrl =
+          await StorageMethods().uploadImageToStorage('adoptions', file, true);
+      String adoptionId = const Uuid().v1();
+
+      Timestamp date = Timestamp.now();
+      AdoptionCard adoptionCard = AdoptionCard(
+        petName: petName,
+        age: age,
+        sex: sex,
+        phoneNumber: contactPhone,
+        description: description,
+        petUrl: petUrl,
+        createdAt: date,
+        adoptionId: adoptionId,
+        uid: uid,
+      );
+
+      _firestore
+          .collection('adoptions')
+          .doc(adoptionId)
+          .set(adoptionCard.toJson());
+      res = 'success';
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
       if (likes.contains(uid)) {
@@ -58,6 +100,33 @@ class FirestoreMethods {
       print(
         e.toString(),
       );
+    }
+  }
+
+  Future<void> postComment(String postId, String text, String uid, String name,
+      String profilePic) async {
+    try {
+      if (text.isNotEmpty) {
+        String commentId = const Uuid().v1();
+        Timestamp date = Timestamp.now();
+        _firestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'profilePic': profilePic,
+          'name': name,
+          'uid': uid,
+          'text': text,
+          'commentId': commentId,
+          'datePublished': date,
+        });
+      } else {
+        print('El texto esta vacio');
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
