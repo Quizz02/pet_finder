@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:pet_finder/models/user.dart' as model;
 import 'package:pet_finder/resources/storage_methods.dart';
 
@@ -36,6 +37,13 @@ class AuthMethods {
               lastname.isNotEmpty
           //file != null
           ) {
+        /*if (file.isEmpty || file == null) {
+          print('entra a file empty');
+          final ByteData bytes = await rootBundle.load('assets/logo.png');
+          final Uint8List im = bytes.buffer.asUint8List();
+          file = im;
+          print('valor de file asignado');
+        }*/
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);

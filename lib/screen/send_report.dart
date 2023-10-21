@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -25,11 +24,8 @@ class _SendReportState extends State<SendReport> {
 
   void _openAnimatedDialog(BuildContext context, dynamic result) {
     double res1 = result["Saludable"] * 100;
-    String saludable = res1.toStringAsFixed(2);
     double res2 = result["Herido"] * 100;
-    String herido = res2.toStringAsFixed(2);
     double res3 = result["Grave"] * 100;
-    String grave = res3.toStringAsFixed(2);
 
     Map<String, double> saludableMap = {
       "Saludable": res1,
@@ -71,7 +67,6 @@ class _SendReportState extends State<SendReport> {
                   Container(
                     width: 315,
                     height: 170,
-                    //child: Text('Saludable: ' + saludable + '%'),
                     child: PieChart(
                         dataMap: saludableMap,
                         animationDuration: Duration(milliseconds: 800),
@@ -86,7 +81,6 @@ class _SendReportState extends State<SendReport> {
                           showLegendsInRow: false,
                           legendPosition: LegendPosition.right,
                           showLegends: false,
-                          //legendShape: _BoxShape.circle,
                           legendTextStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -101,11 +95,9 @@ class _SendReportState extends State<SendReport> {
                         totalValue: 100,
                         baseChartColor: Color.fromARGB(255, 218, 217, 217)),
                   ),
-                  //Text('Herido: ' + herido + '%'),
                   Container(
                     width: 315,
                     height: 170,
-                    //child: Text('Saludable: ' + saludable + '%'),
                     child: PieChart(
                         dataMap: heridoMap,
                         animationDuration: Duration(milliseconds: 800),
@@ -137,7 +129,6 @@ class _SendReportState extends State<SendReport> {
                   Container(
                     width: 315,
                     height: 170,
-                    //child: Text('Saludable: ' + saludable + '%'),
                     child: PieChart(
                         dataMap: graveMap,
                         animationDuration: Duration(milliseconds: 800),
@@ -216,7 +207,6 @@ class _SendReportState extends State<SendReport> {
   @override
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).getUser;
-    const maxLines = 5;
     const widthDefault = 340.0;
     final tipoAnimal = ['Perro', 'Gato'];
     final tamanios = ['Grande', 'Mediano', 'Pequeño'];
