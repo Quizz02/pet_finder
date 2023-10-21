@@ -164,31 +164,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
 
     void signUpUser() async {
-      Timestamp date;
-
-      setState(() {
-        _isLoading = true;
-      });
-
-      date = Timestamp.now();
-      String res = await AuthMethods().signUpUser(
-          email: emailEditingController.text,
-          password: passwordEditingController.text,
-          firstname: firstNameEditingController.text,
-          lastname: lastNameEditingController.text,
-          createdAt: date,
-          petShelter: isPetShelter,
-          file: _image!);
-
-      if (res != "Success") {
-        showSnackbar(res, context);
+      if (passwordEditingController.text !=
+          confirmPasswordEditingController.text) {
+        showSnackbar('Las contraseñas no coinciden', context);
+      } else if (_image == null) {
+        showSnackbar('Debe seleccionar una imagen de perfil', context);
       } else {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage()));
+        Timestamp date;
+
+        setState(() {
+          _isLoading = true;
+        });
+
+        date = Timestamp.now();
+        String res = await AuthMethods().signUpUser(
+            email: emailEditingController.text,
+            password: passwordEditingController.text,
+            firstname: firstNameEditingController.text,
+            lastname: lastNameEditingController.text,
+            createdAt: date,
+            petShelter: isPetShelter,
+            file: _image!);
+
+        if (res != "Success") {
+          showSnackbar(res, context);
+        } else {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomePage()));
+        }
+        setState(() {
+          _isLoading = false;
+        });
       }
-      setState(() {
-        _isLoading = false;
-      });
     }
 
     final signUpButton = Material(
@@ -288,7 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 30,
                     ),
                     SlidingSwitch(
-                      value: true,
+                      value: false,
                       textOn: 'Refugio',
                       textOff: 'Pet Lover',
                       colorOn: primary,
