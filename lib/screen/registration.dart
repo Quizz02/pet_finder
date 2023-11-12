@@ -295,7 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 30,
                     ),
                     SlidingSwitch(
-                      value: true,
+                      value: false,
                       textOn: 'Refugio',
                       textOff: 'Pet Lover',
                       colorOn: primary,
