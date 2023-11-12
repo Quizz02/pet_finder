@@ -4,11 +4,9 @@ import 'package:pet_finder/screen/add_post_screen.dart';
 import 'package:pet_finder/screen/adoption_screen.dart';
 import 'package:pet_finder/screen/community.dart';
 import 'package:pet_finder/screen/login.dart';
-import 'package:pet_finder/screen/prediction.dart';
 import 'package:pet_finder/screen/send_report.dart';
 import 'package:provider/provider.dart';
 import 'package:pet_finder/models/user.dart' as model;
-
 import '../providers/user_provider.dart';
 import '../utils/utils.dart';
 import 'dart:typed_data';
@@ -102,7 +100,7 @@ class _NavBarState extends State<NavBar> {
                         builder: (BuildContext context) => AddPostScreen()));
               }),
           ListTile(
-              leading: Icon(Icons.add),
+              leading: Icon(Icons.groups),
               title: Text('Comunidad'),
               onTap: () {
                 Navigator.push(
@@ -110,24 +108,6 @@ class _NavBarState extends State<NavBar> {
                     MaterialPageRoute(
                         builder: (BuildContext context) => Community()));
               }),
-          /*user.petShelter
-              ? ListTile(
-                  leading: Icon(Icons.favorite),
-                  title: Text('Lista de Reportes Emitidos'),
-                  onTap: () {})
-              : SizedBox(
-                  width: 0,
-                  height: 0,
-                ),*/
-          /*ListTile(
-              leading: Icon(Icons.location_on),
-              title: Text('Mapa de Avistamientos'),
-              onTap: () async {
-                Navigator.pop(context);
-
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Prediction()));
-              }),*/
           ListTile(
               leading: Icon(Icons.warning),
               title: Text('Listados de Adopcion'),

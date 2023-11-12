@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_finder/screen/add_adoption_listing.dart';
 import 'package:pet_finder/widgets/adoption_grid.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 

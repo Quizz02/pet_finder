@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_finder/colors.dart';
 import 'package:pet_finder/resources/firestore_methods.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
 import '../providers/user_provider.dart';
 import '../widgets/comment_card.dart';

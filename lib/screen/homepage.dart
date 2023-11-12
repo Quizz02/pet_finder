@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:pet_finder/screen/pet_list_screen.dart';
-import 'package:pet_finder/widgets/report_card.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import 'navbar.dart';
@@ -38,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<Position> _getLocation() async {
+  /*Future<Position> _getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -68,17 +65,23 @@ class _HomePageState extends State<HomePage> {
     Position position = await Geolocator.getCurrentPosition();
 
     return position;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    _getLocation();
+    //_getLocation();
     return WillPopScope(
       child: Scaffold(
         drawer: NavBar(),
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {},
+            ),
+          ],
           title: const Text(
-            'Inicio',
+            'Mis Mascotas',
             style: TextStyle(color: Colors.white),
           ),
           iconTheme: IconThemeData(color: Colors.white),
