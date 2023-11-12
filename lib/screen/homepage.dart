@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:pet_finder/screen/pet_list_screen.dart';
 import 'package:pet_finder/widgets/report_card.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
@@ -82,33 +83,7 @@ class _HomePageState extends State<HomePage> {
           ),
           iconTheme: IconThemeData(color: Colors.white),
         ),
-        body: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('posts')
-              .orderBy('createdAt', descending: true)
-              .snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-              return Center(
-                child: Text('No se encontraron datos'),
-              );
-            }
-
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) => ReportCard(
-                snap: snapshot.data!.docs[index].data(),
-              ),
-            );
-          },
-        ),
+        body: PetListScreen(),
       ),
       onWillPop: () => exit(0),
     );

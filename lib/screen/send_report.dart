@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_finder/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:snippet_coder_utils/FormHelper.dart';
 import '../colors.dart';
 import '../models/user.dart';
 import '../providers/user_provider.dart';
@@ -17,37 +18,74 @@ class SendReport extends StatefulWidget {
 
 class _SendReportState extends State<SendReport> {
   bool _isLoading = false;
-  String? tamanio;
-  String? animal;
-  String? colorPelaje;
-  String? distrito;
+  String? sexo; //parametro post
+  String? animal; //parametro post
+  String? colorPelaje; //parametro post
+  String? raza; //parametro post
+  String? animalId;
+  String? razaId;
+
+  final tipoAnimal = [
+    {"id": 1, "label": 'Perro'},
+    {"id": 2, "label": 'Gato'}
+  ];
+  final sexos = ['Macho', 'Hembra'];
+  final colores = ['Negro', 'Blanco', 'Marrón', 'Gris', 'Variado'];
+
+  List<dynamic> razasPerro = [
+    {"ID": 1, "label": 'Yorkshire'},
+    {"ID": 2, "label": 'Beagle'},
+    {"ID": 3, "label": 'Golden Retriever'},
+    {"ID": 4, "label": 'Poodle'},
+    {"ID": 5, "label": 'Schnauzer'},
+    {"ID": 6, "label": 'Pastor Alemán'},
+    {"ID": 7, "label": 'Labrador'},
+    {"ID": 8, "label": 'Desconocido'}
+  ];
+  List<dynamic> razasGato = [
+    {"ID": 1, "label": 'Persa'},
+    {"ID": 2, "label": 'Siamés'},
+    {"ID": 3, "label": 'Bengala'},
+    {"ID": 4, "label": 'Desconocido'}
+  ];
+
+  List<dynamic> razasMaster = [
+    {"ID": 1, "label": 'Yorkshire', "ParentId": 1},
+    {"ID": 2, "label": 'Beagle', "ParentId": 1},
+    {"ID": 3, "label": 'Golden Retriever', "ParentId": 1},
+    {"ID": 4, "label": 'Poodle', "ParentId": 1},
+    {"ID": 5, "label": 'Schnauzer', "ParentId": 1},
+    {"ID": 6, "label": 'Pastor Alemán', "ParentId": 1},
+    {"ID": 7, "label": 'Labrador', "ParentId": 1},
+    {"ID": 8, "label": 'Desconocido', "ParentId": 1},
+    {"ID": 1, "label": 'Persa', "ParentId": 2},
+    {"ID": 2, "label": 'Siamés', "ParentId": 2},
+    {"ID": 3, "label": 'Bengala', "ParentId": 2},
+    {"ID": 4, "label": 'Desconocido', "ParentId": 2}
+  ];
+
+  List<dynamic> razas = [];
 
   void _openAnimatedDialog(BuildContext context, dynamic result) {
-    double res1 = result["Saludable"] * 100;
-    double res2 = result["Herido"] * 100;
-    double res3 = result["Grave"] * 100;
+    print('ingresa openAnimatedDialog');
+    double res1 = double.parse(result["Si_adoptado"]) * 100;
+    String si = res1.toStringAsFixed(2);
+    double res2 = double.parse(result["No_adoptado"]) * 100;
+    String no = res2.toStringAsFixed(2);
 
-    Map<String, double> saludableMap = {
-      "Saludable": res1,
+    Map<String, double> AdoptadoMap = {
+      "Adoptado": res1,
     };
 
-    Map<String, double> heridoMap = {
-      "Herido": res2,
+    Map<String, double> noAdoptadoMap = {
+      "No Adoptado": res2,
     };
 
-    Map<String, double> graveMap = {
-      "Grave": res3,
-    };
-
-    final colorSaludable = <Color>[
+    final colorAdoptado = <Color>[
       Colors.greenAccent,
     ];
 
-    final colorHerido = <Color>[
-      Colors.blueAccent,
-    ];
-
-    final colorGrave = <Color>[
+    final colorNoAdoptado = <Color>[
       Colors.redAccent,
     ];
 
@@ -61,22 +99,24 @@ class _SendReportState extends State<SendReport> {
             scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
             child: AlertDialog(
               contentPadding: EdgeInsets.all(30),
-              title: Center(child: const Text('Resultados de consulta')),
+              title: Center(child: const Text('Probabilidad de ser adoptado')),
               content: Column(
                 children: [
                   Container(
+                    //color: Colors.redAccent,
                     width: 315,
-                    height: 170,
+                    height: 250,
+                    //child: Text('Saludable: ' + saludable + '%'),
                     child: PieChart(
-                        dataMap: saludableMap,
+                        dataMap: AdoptadoMap,
                         animationDuration: Duration(milliseconds: 800),
                         chartLegendSpacing: 32,
-                        chartRadius: MediaQuery.of(context).size.width / 3.5,
-                        colorList: colorSaludable,
-                        initialAngleInDegree: 0,
+                        chartRadius: MediaQuery.of(context).size.width / 2.5,
+                        colorList: colorAdoptado,
+                        initialAngleInDegree: 270,
                         chartType: ChartType.ring,
                         ringStrokeWidth: 20,
-                        centerText: "Saludable",
+                        centerText: "Adoptado",
                         legendOptions: LegendOptions(
                           showLegendsInRow: false,
                           legendPosition: LegendPosition.right,
@@ -96,49 +136,20 @@ class _SendReportState extends State<SendReport> {
                         baseChartColor: Color.fromARGB(255, 218, 217, 217)),
                   ),
                   Container(
+                    //color: Colors.blueAccent,
                     width: 315,
-                    height: 170,
+                    height: 250,
+                    //child: Text('Saludable: ' + saludable + '%'),
                     child: PieChart(
-                        dataMap: heridoMap,
+                        dataMap: noAdoptadoMap,
                         animationDuration: Duration(milliseconds: 800),
                         chartLegendSpacing: 32,
-                        chartRadius: MediaQuery.of(context).size.width / 3.5,
-                        colorList: colorHerido,
-                        initialAngleInDegree: 0,
+                        chartRadius: MediaQuery.of(context).size.width / 2.5,
+                        colorList: colorNoAdoptado,
+                        initialAngleInDegree: 270,
                         chartType: ChartType.ring,
                         ringStrokeWidth: 20,
-                        centerText: "Herido",
-                        legendOptions: LegendOptions(
-                          showLegendsInRow: false,
-                          legendPosition: LegendPosition.right,
-                          showLegends: false,
-                          legendTextStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        chartValuesOptions: ChartValuesOptions(
-                          showChartValueBackground: true,
-                          showChartValues: true,
-                          showChartValuesInPercentage: true,
-                          showChartValuesOutside: false,
-                          decimalPlaces: 1,
-                        ),
-                        totalValue: 100,
-                        baseChartColor: Color.fromARGB(255, 218, 217, 217)),
-                  ),
-                  Container(
-                    width: 315,
-                    height: 170,
-                    child: PieChart(
-                        dataMap: graveMap,
-                        animationDuration: Duration(milliseconds: 800),
-                        chartLegendSpacing: 32,
-                        chartRadius: MediaQuery.of(context).size.width / 3.5,
-                        colorList: colorGrave,
-                        initialAngleInDegree: 0,
-                        chartType: ChartType.ring,
-                        ringStrokeWidth: 20,
-                        centerText: "Grave",
+                        centerText: "No Adoptado",
                         legendOptions: LegendOptions(
                           showLegendsInRow: false,
                           legendPosition: LegendPosition.right,
@@ -168,20 +179,20 @@ class _SendReportState extends State<SendReport> {
         });
   }
 
-  postData(tipoAnimal, tamanio, colorPelaje, distrito) async {
+  postData(tipoAnimal, raza, colorPelaje, sexo) async {
     setState(() {
       _isLoading = true;
     });
 
     String res = 'Ocurrio algun error';
-    var url = Uri.parse("https://tp2-api.onrender.com/prediction");
+    var url = Uri.parse("https://tp2-api2.onrender.com/prediction");
     try {
       var body = {
         "id": "0",
-        "district": distrito,
         "animalType": tipoAnimal,
-        "size": tamanio,
+        "breed": raza,
         "color": colorPelaje,
+        "sex": sexo
       };
 
       var response = await http.post(url,
@@ -191,6 +202,7 @@ class _SendReportState extends State<SendReport> {
       if (response.statusCode == 200) {
         res = 'Consulta enviada!';
         var result = json.decode(response.body);
+        print(result);
         _openAnimatedDialog(context, result);
       }
       print(response.body);
@@ -208,58 +220,10 @@ class _SendReportState extends State<SendReport> {
   Widget build(BuildContext context) {
     final User? user = Provider.of<UserProvider>(context).getUser;
     const widthDefault = 340.0;
-    final tipoAnimal = ['Perro', 'Gato'];
-    final tamanios = ['Grande', 'Mediano', 'Pequeño'];
-    final colores = ['Negro', 'Blanco', 'Marrón', 'Gris', 'Crema'];
-    final distritos = [
-      'Ancón',
-      'Ate',
-      'Barranco',
-      'Breña',
-      'Carabayllo',
-      'Cercado de Lima',
-      'Chaclacayo',
-      'Chorrillos',
-      'Cieneguilla',
-      'Comas',
-      'El agustino',
-      'Independencia',
-      'Jesús maría',
-      'La molina',
-      'La victoria',
-      'Lince',
-      'Los olivos',
-      'Lurigancho',
-      'Lurín',
-      'Magdalena del mar',
-      'Miraflores',
-      'Pachacámac',
-      'Pucusana',
-      'Pueblo libre',
-      'Puente piedra',
-      'Punta hermosa',
-      'Punta negra',
-      'Rímac',
-      'San bartolo',
-      'San borja',
-      'San isidro',
-      'San Juan de Lurigancho',
-      'San Juan de Miraflores',
-      'San Luis',
-      'San Martin de Porres',
-      'San Miguel',
-      'Santa Anita',
-      'Santa María del Mar',
-      'Santa Rosa',
-      'Santiago de Surco',
-      'Surquillo',
-      'Villa el Salvador',
-      'Villa Maria del Triunfo'
-    ];
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Consultar Estado de Animal'),
+          title: Text('Probabilidad de adopcion'),
           foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
@@ -281,29 +245,97 @@ class _SendReportState extends State<SendReport> {
                     ),
                   ),
                   Container(
-                    width: widthDefault,
+                    //color: Colors.red,
+                    width: 350,
                     alignment: Alignment.center,
-                    child: DropdownButtonFormField(
-                      isExpanded: true,
-                      hint: Text('Seleccione un tipo de animal'),
-                      value: animal,
-                      iconSize: 30,
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.black,
-                      ),
-                      items: tipoAnimal.map((valueItem) {
-                        return DropdownMenuItem(
-                          value: valueItem,
-                          child: Text(valueItem),
-                        );
-                      }).toList(),
-                      onChanged: (newValue) {
+                    child: FormHelper.dropDownWidget(
+                      context,
+                      "Seleccione un tipo de Animal",
+                      this.animalId,
+                      tipoAnimal,
+                      (onChangedVal) {
+                        this.animalId = onChangedVal;
+                        print('animalId: ' + onChangedVal);
+                        print(tipoAnimal[int.parse(onChangedVal) - 1]["label"]
+                            .toString());
+                        this.razas = this
+                            .razasMaster
+                            .where(
+                              (razaItem) =>
+                                  razaItem["ParentId"].toString() ==
+                                  onChangedVal.toString(),
+                            )
+                            .toList();
+                        this.razaId = null;
                         setState(() {
-                          animal = newValue as String?;
-                          print(animal);
+                          //this.razaId = null;
+                          animal = tipoAnimal[int.parse(onChangedVal) - 1]
+                                  ["label"]
+                              .toString();
                         });
                       },
+                      (onValidateVal) {
+                        if (onValidateVal == null) {
+                          return "Seleccione un tipo de animal";
+                        }
+                        return null;
+                      },
+                      borderColor: Colors.grey,
+                      borderWidth: 0,
+                      borderFocusColor: primary,
+                      optionValue: "id",
+                      optionLabel: "label",
+                      borderRadius: 10,
+                      paddingLeft: 0,
+                      paddingRight: 0,
+                      hintFontSize: 14,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: widthDefault,
+                    height: 40,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Raza',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 350,
+                    alignment: Alignment.center,
+                    child: FormHelper.dropDownWidget(
+                      context,
+                      "Seleccione raza del animal",
+                      this.razaId,
+                      this.razas,
+                      (onChangedVal) {
+                        this.razaId = onChangedVal;
+                        setState(() {
+                          this.animalId = this.razas[0]["ParentId"].toString();
+                          raza = razas[int.parse(onChangedVal) - 1]["label"]
+                              .toString();
+                        });
+                        print('razaId: ' + onChangedVal);
+                        print('animalId: ' + this.animalId!);
+                        //print(razas);
+                        print(razas[int.parse(onChangedVal) - 1]["label"]);
+                      },
+                      (onValidate) {
+                        return null;
+                      },
+                      borderColor: Colors.grey,
+                      borderWidth: 0,
+                      borderFocusColor: primary,
+                      optionValue: "ID",
+                      optionLabel: "label",
+                      borderRadius: 10,
+                      paddingLeft: 0,
+                      paddingRight: 0,
+                      hintFontSize: 14,
                     ),
                   ),
                   SizedBox(height: 20),
@@ -351,7 +383,7 @@ class _SendReportState extends State<SendReport> {
                     height: 40,
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Tamaño',
+                      'Sexo',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
@@ -363,14 +395,14 @@ class _SendReportState extends State<SendReport> {
                     alignment: Alignment.center,
                     child: DropdownButtonFormField(
                         isExpanded: true,
-                        hint: Text('Seleccione un tamaño'),
-                        value: tamanio,
+                        hint: Text('Seleccione sexo del animal'),
+                        value: sexo,
                         iconSize: 30,
                         icon: Icon(
                           Icons.arrow_drop_down,
                           color: Colors.black,
                         ),
-                        items: tamanios.map((valueItem) {
+                        items: sexos.map((valueItem) {
                           return DropdownMenuItem(
                             value: valueItem,
                             child: Text(valueItem),
@@ -378,46 +410,8 @@ class _SendReportState extends State<SendReport> {
                         }).toList(),
                         onChanged: (newValue) {
                           setState(() {
-                            tamanio = newValue as String?;
-                            print(tamanio);
-                          });
-                        }),
-                  ),
-                  SizedBox(height: 20),
-                  Container(
-                    width: widthDefault,
-                    height: 40,
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Distrito',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: widthDefault,
-                    alignment: Alignment.center,
-                    child: DropdownButtonFormField(
-                        isExpanded: true,
-                        hint: Text('Seleccione un distrito'),
-                        value: distrito,
-                        iconSize: 30,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black,
-                        ),
-                        items: distritos.map((valueItem) {
-                          return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(valueItem),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            distrito = newValue as String?;
-                            print(distrito);
+                            sexo = newValue as String?;
+                            print(sexo);
                           });
                         }),
                   ),
@@ -441,7 +435,9 @@ class _SendReportState extends State<SendReport> {
                                 ),
                               ),
                         onPressed: () {
-                          postData(animal, tamanio, colorPelaje, distrito);
+                          print(animal);
+                          print(raza);
+                          postData(animal, raza, colorPelaje, sexo);
                         }),
                   ),
                   SizedBox(height: 20),

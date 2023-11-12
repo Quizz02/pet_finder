@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_finder/screen/add_post_screen.dart';
 import 'package:pet_finder/screen/adoption_screen.dart';
+import 'package:pet_finder/screen/community.dart';
 import 'package:pet_finder/screen/login.dart';
 import 'package:pet_finder/screen/prediction.dart';
 import 'package:pet_finder/screen/send_report.dart';
@@ -93,12 +94,21 @@ class _NavBarState extends State<NavBar> {
           ),
           ListTile(
               leading: Icon(Icons.add),
-              title: Text('Nueva Publicación'),
+              title: Text('Nueva publicación'),
               onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => AddPostScreen()));
+              }),
+          ListTile(
+              leading: Icon(Icons.add),
+              title: Text('Comunidad'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Community()));
               }),
           /*user.petShelter
               ? ListTile(
@@ -129,7 +139,7 @@ class _NavBarState extends State<NavBar> {
               }),
           ListTile(
               leading: Icon(Icons.manage_search),
-              title: Text('Consultar Estado de Animal'),
+              title: Text('Probabilidad de Adopcion'),
               onTap: () async {
                 Navigator.pop(context);
 
