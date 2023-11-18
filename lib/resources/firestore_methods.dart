@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_finder/models/adoption_card.dart';
+import 'package:pet_finder/models/pet.dart';
 import 'package:pet_finder/models/post.dart';
 import 'package:pet_finder/resources/storage_methods.dart';
 import 'package:uuid/uuid.dart';
@@ -37,6 +38,55 @@ class FirestoreMethods {
           likes: []);
 
       _firestore.collection('posts').doc(postId).set(post.toJson());
+      res = 'success';
+    } catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  //Subir una mascota
+  Future<String> uploadPet(
+    String petName,
+    String animalType,
+    String age,
+    String breed,
+    bool dewormed,
+    bool vaccinated,
+    String sex,
+    String color,
+    String description,
+    Uint8List file,
+    String uid,
+  ) async {
+    String res = 'Ha ocurrido un error';
+
+    try {
+      String petUrl =
+          await StorageMethods().uploadImageToStorage('pets', file, true);
+      String petId = const Uuid().v1();
+
+      Timestamp date = Timestamp.now();
+      Pet petInfo = Pet(
+        petName: petName,
+        animalType: animalType,
+        age: age,
+        breed: breed,
+        dewormed: dewormed,
+        vaccinated: vaccinated,
+        sex: sex,
+        color: color,
+        description: description,
+        petUrl: petUrl,
+        createdAt: date,
+        petId: petId,
+        uid: uid,
+      );
+
+      _firestore
+          .collection('pets')
+          .doc(petId)
+          .set(petInfo.toJson());
       res = 'success';
     } catch (e) {
       res = e.toString();

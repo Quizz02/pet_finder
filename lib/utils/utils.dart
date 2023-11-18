@@ -19,7 +19,7 @@ pickImage(ImageSource source) async {
   print('No se ha seleccionado una imagen');
 }
 
-openAnimatedDialog(BuildContext context, dynamic result) {
+/*openAnimatedDialog(BuildContext context, dynamic result) {
   print('ingresa openAnimatedDialog');
   double res1 = double.parse(result["Si_adoptado"]) * 100;
   String si = res1.toStringAsFixed(2);
@@ -130,4 +130,113 @@ openAnimatedDialog(BuildContext context, dynamic result) {
           ),
         );
       });
+}*/
+
+openAnimatedDialog(BuildContext context, dynamic result) {
+  print('ingresa openAnimatedDialog');
+  double res1 = double.parse(result["Si_adoptado"]) * 100;
+  String si = res1.toStringAsFixed(2);
+
+  Map<String, double> AdoptadoMap = {
+    "Adoptado": res1,
+  };
+
+  final colorAdoptado = <Color>[
+    res1 <= 70 ? Colors.yellowAccent : Colors.greenAccent,
+  ];
+
+  String message;
+  String improvementTips;
+
+  if (res1 <= 30) {
+    message = "La probabilidad de que una persona adopte a tu amigo animal es muy baja :(";
+    improvementTips = "Aqui hay algunas cosas que puedes hacer para mejorar:\n"
+        "- Darle más exposición a tu amigo de cuatro patas en las redes sociales\n"
+        "- Tomarle fotos que resalten su lado más adorable\n"
+        "- Brindar la opción de que las personas puedan visitar su refugio y verlo\n"
+        "- Ponerle una descripción más llamativa que le favorezca";
+  } else if (res1 <= 69) {
+    // Add any additional messages or tips for this range if needed
+    message = "La probabilidad de adopción es moderada";
+    improvementTips = "¡Sigue trabajando para mejorar la visibilidad de tu amigo animal!";
+  } else {
+    // Add any additional messages or tips for this range if needed
+    message = "¡Gran noticia! La probabilidad de adopción es alta";
+    improvementTips = "¡Sigue así y pronto encontrarás un hogar para tu amigo de cuatro patas!";
+  }
+
+  showGeneralDialog(
+    context: context,
+    pageBuilder: (context, animation1, animation2) {
+      return Container();
+    },
+    transitionBuilder: (context, a1, a2, widget) {
+      return ScaleTransition(
+        scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+        child: AlertDialog(
+          contentPadding: EdgeInsets.all(30),
+          title: Center(child: const Text('Probabilidad de ser adoptado')),
+          content: Column(
+            children: [
+              SizedBox(height: 10,),
+              Container(
+                width: 315,
+                height: 250,
+                child: PieChart(
+                  dataMap: AdoptadoMap,
+                  animationDuration: Duration(milliseconds: 800),
+                  chartLegendSpacing: 32,
+                  chartRadius: MediaQuery.of(context).size.width / 1.5,
+                  colorList: colorAdoptado,
+                  initialAngleInDegree: 270,
+                  chartType: ChartType.ring,
+                  ringStrokeWidth: 30,
+                  centerText: "Adoptado",
+                  legendOptions: LegendOptions(
+                    showLegendsInRow: false,
+                    legendPosition: LegendPosition.right,
+                    showLegends: false,
+                    legendTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  chartValuesOptions: ChartValuesOptions(
+                    showChartValueBackground: true,
+                    showChartValues: true,
+                    showChartValuesInPercentage: true,
+                    showChartValuesOutside: false,
+                    decimalPlaces: 1,
+                  ),
+                  totalValue: 100,
+                  baseChartColor: Color.fromARGB(255, 218, 217, 217),
+                ),
+              ),
+              SizedBox(height: 20,),
+              Text(
+                message,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 10),
+              if (improvementTips != null)
+                Text(
+                  improvementTips,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                  ),
+                ),
+            ],
+          ),
+          shape: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      );
+    },
+  );
 }
