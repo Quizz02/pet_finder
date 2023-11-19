@@ -18,7 +18,8 @@ class StorageMethods {
       ref = ref.child(id);
     }
 
-    UploadTask uploadTask = ref.putData(file);
+    UploadTask uploadTask =
+        ref.putData(file, SettableMetadata(contentType: "image/jpeg"));
 
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();

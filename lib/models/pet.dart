@@ -10,7 +10,7 @@ class Pet {
   final String color;
   final String sex;
   //final String phoneNumber;
-  final String description;
+  //final String description;
   //final String contactEmail;
   final String petUrl;
   final Timestamp createdAt;
@@ -28,7 +28,7 @@ class Pet {
     required this.color,
     required this.sex,
     //required this.phoneNumber,
-    required this.description,
+    //required this.description,
     //required this.contactEmail,
     required this.petUrl,
     required this.createdAt,
@@ -47,7 +47,7 @@ class Pet {
         'color': color,
         'sex': sex,
         //'phoneNumber': phoneNumber,
-        'description': description,
+        //'description': description,
         'petUrl': petUrl,
         'createdAt': createdAt,
         'petId': petId,
@@ -66,8 +66,7 @@ final List<Pet> petList = [
       color: "Variado",
       sex: "Hembra",
       //phoneNumber: "+1 (886) 526-2721",
-      description:
-          "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
+      //description: "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -83,8 +82,7 @@ final List<Pet> petList = [
       color: "Blanco",
       sex: "Hembra",
       //phoneNumber: "+1 (885) 474-3458",
-      description:
-          "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
+      //description: "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf738e1e663dd0210e4",
@@ -99,8 +97,7 @@ final List<Pet> petList = [
       color: "Marrón",
       sex: "Macho",
       //phoneNumber: "+1 (928) 542-2046",
-      description:
-          "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
+      //description: "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -116,8 +113,7 @@ final List<Pet> petList = [
       color: "Negro",
       sex: "Hembra",
       //phoneNumber: "+1 (836) 421-2050",
-      description:
-          "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
+      //description: "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf7769f27ad48cff5b8",
@@ -132,8 +128,7 @@ final List<Pet> petList = [
       color: "Variado",
       sex: "Hembra",
       //phoneNumber: "+1 (886) 526-2721",
-      description:
-          "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
+      //description: "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -149,8 +144,7 @@ final List<Pet> petList = [
       color: "Blanco",
       sex: "Hembra",
       //phoneNumber: "+1 (885) 474-3458",
-      description:
-          "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
+      //description: "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf738e1e663dd0210e4",
@@ -165,8 +159,7 @@ final List<Pet> petList = [
       color: "Marrón",
       sex: "Macho",
       //phoneNumber: "+1 (928) 542-2046",
-      description:
-          "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
+      //description: "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -182,8 +175,7 @@ final List<Pet> petList = [
       color: "Negro",
       sex: "Hembra",
       //phoneNumber: "+1 (836) 421-2050",
-      description:
-          "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
+      //description: "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf7769f27ad48cff5b8",
@@ -198,8 +190,7 @@ final List<Pet> petList = [
       color: "Variado",
       sex: "Hembra",
       //phoneNumber: "+1 (886) 526-2721",
-      description:
-          "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
+      //description: "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -215,8 +206,7 @@ final List<Pet> petList = [
       color: "Blanco",
       sex: "Hembra",
       //phoneNumber: "+1 (885) 474-3458",
-      description:
-          "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
+      //description: "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf738e1e663dd0210e4",
@@ -231,8 +221,7 @@ final List<Pet> petList = [
       color: "Marrón",
       sex: "Macho",
       //phoneNumber: "+1 (928) 542-2046",
-      description:
-          "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
+      //description: "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -248,8 +237,7 @@ final List<Pet> petList = [
       color: "Negro",
       sex: "Hembra",
       //phoneNumber: "+1 (836) 421-2050",
-      description:
-          "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
+      //description: "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf7769f27ad48cff5b8",
@@ -264,8 +252,7 @@ final List<Pet> petList = [
       color: "Negro",
       sex: "Macho",
       //phoneNumber: "+1 (836) 421-2050",
-      description:
-          "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
+      //description: "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf7769f27ad48cff5b8",
@@ -280,8 +267,7 @@ final List<Pet> petList = [
       color: "Variado",
       sex: "Hembra",
       //phoneNumber: "+1 (886) 526-2721",
-      description:
-          "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
+      //description: "Qui ex qui non excepteur proident quis aliquip ullamco. Duis et est ad voluptate et officia qui pariatur in minim eiusmod. Quis proident Lorem excepteur do sint consectetur ut esse aliquip dolor incididunt ad.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -297,8 +283,7 @@ final List<Pet> petList = [
       color: "Blanco",
       sex: "Hembra",
       //phoneNumber: "+1 (885) 474-3458",
-      description:
-          "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
+      //description: "Magna ipsum mollit consectetur id cillum incididunt cillum. Eu est cupidatat id consequat culpa esse duis. Ut mollit ad esse non. Incididunt culpa cillum laboris et. Voluptate officia anim tempor mollit adipisicing id reprehenderit magna exercitation in culpa non ut anim.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf738e1e663dd0210e4",
@@ -313,8 +298,7 @@ final List<Pet> petList = [
       color: "Marrón",
       sex: "Macho",
       //phoneNumber: "+1 (928) 542-2046",
-      description:
-          "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
+      //description: "Deserunt officia et laboris enim quis ipsum ullamco cupidatat ut. Pariatur non quis pariatur elit tempor nisi elit anim nisi ullamco aute quis ex Lorem. Enim pariatur tempor velit sint exercitation commodo labore tempor velit non.\r\n",
       petUrl:
           "https://static-cdn.jtvnw.net/jtv_user_pictures/4924192f-d201-4549-b102-7d4b4d9a05de-profile_image-300x300.png",
       createdAt: Timestamp.now(),
@@ -330,8 +314,7 @@ final List<Pet> petList = [
       color: "Negro",
       sex: "Hembra",
       //phoneNumber: "+1 (836) 421-2050",
-      description:
-          "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
+      //description: "Proident consectetur nisi laboris consequat et non nostrud adipisicing exercitation. Ex amet labore cillum aliquip do voluptate ut ipsum irure ullamco duis laborum. Culpa enim dolor esse dolor do labore. Ex magna cupidatat mollit esse ex exercitation laborum reprehenderit mollit labore nostrud. Laboris excepteur excepteur velit ex officia labore dolore reprehenderit sunt aliquip excepteur anim laboris. Reprehenderit sint do magna fugiat.\r\n",
       petUrl: "https://i.imgflip.com/vo40i.jpg",
       createdAt: Timestamp.now(),
       petId: "65507cf7769f27ad48cff5b8",

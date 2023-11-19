@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:pet_finder/screen/add_pet.dart';
 import 'package:pet_finder/screen/pet_list_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
@@ -35,41 +36,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /*Future<Position> _getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Permisos desactivados
-      return Future.error('Los servicios de ubicacion están desactivados.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      //Si ha sido denegado, solicitar permiso otra vez
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permisos denegados
-        return Future.error('No se han permitido los servicios de ubicación');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permisos permanentemente denegados
-      return Future.error(
-          'Los servicios de ubicación están permanentemente desactivados, no se puede solicitar permiso.');
-    }
-
-    //Permisos concedidos
-    Position position = await Geolocator.getCurrentPosition();
-
-    return position;
-  }*/
-
   @override
   Widget build(BuildContext context) {
-    //_getLocation();
     return WillPopScope(
       child: Scaffold(
         drawer: NavBar(),
@@ -77,7 +45,12 @@ class _HomePageState extends State<HomePage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => AddPet()));
+              },
             ),
           ],
           title: const Text(

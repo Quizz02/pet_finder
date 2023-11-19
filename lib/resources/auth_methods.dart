@@ -37,13 +37,6 @@ class AuthMethods {
               lastname.isNotEmpty
           //file != null
           ) {
-        /*if (file.isEmpty || file == null) {
-          print('entra a file empty');
-          final ByteData bytes = await rootBundle.load('assets/logo.png');
-          final Uint8List im = bytes.buffer.asUint8List();
-          file = im;
-          print('valor de file asignado');
-        }*/
         //register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
@@ -64,7 +57,7 @@ class AuthMethods {
             following: [],
             photoUrl: photoUrl);
 
-        //add user to database
+        //añade usuario a bd
         await _firestore.collection('users').doc(cred.user!.uid).set(
               petlover.toJson(),
             );

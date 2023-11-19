@@ -24,7 +24,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
   bool _isLoading = false;
-  bool isPetShelter = false;
+  bool isPetShelter = true;
   Uint8List? _image;
 
   @override
@@ -147,8 +147,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       autofocus: false,
       controller: confirmPasswordEditingController,
       obscureText: true,
-      //validator: () {}
-
       onSaved: (value) {
         confirmPasswordEditingController.text = value!;
       },

@@ -55,7 +55,7 @@ class FirestoreMethods {
     bool vaccinated,
     String sex,
     String color,
-    String description,
+    //String description,
     Uint8List file,
     String uid,
   ) async {
@@ -76,17 +76,14 @@ class FirestoreMethods {
         vaccinated: vaccinated,
         sex: sex,
         color: color,
-        description: description,
+        //description: description,
         petUrl: petUrl,
         createdAt: date,
         petId: petId,
         uid: uid,
       );
 
-      _firestore
-          .collection('pets')
-          .doc(petId)
-          .set(petInfo.toJson());
+      _firestore.collection('pets').doc(petId).set(petInfo.toJson());
       res = 'success';
     } catch (e) {
       res = e.toString();
