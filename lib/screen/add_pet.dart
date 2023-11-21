@@ -375,7 +375,10 @@ class _AddPetState extends State<AddPet> {
                       alignment: Alignment.center,
                       child: DropdownButtonFormField(
                         isExpanded: true,
-                        hint: Text('Seleccione la edad de la mascota'),
+                        hint: Text(
+                          'Seleccione la edad de la mascota',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         value: edad,
                         iconSize: 30,
                         icon: Icon(

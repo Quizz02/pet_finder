@@ -6,7 +6,11 @@ import 'package:pet_finder/models/pet.dart';
 import '../utils/utils.dart';
 
 class PetListScreen extends StatefulWidget {
-  const PetListScreen({super.key});
+  final snap;
+  const PetListScreen({
+    Key? key,
+    required this.snap,
+  }) : super(key: key);
 
   @override
   State<PetListScreen> createState() => _PetListScreenState();

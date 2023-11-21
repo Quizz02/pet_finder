@@ -18,6 +18,23 @@ class Pet {
   final String uid;
   //final String profImage;
 
+  factory Pet.fromJson(Map<String, dynamic> json) {
+    return Pet(
+      petName: json['petName'] ?? '',
+      animalType: json['animalType'] ?? '',
+      age: json['age'] ?? '',
+      breed: json['breed'] ?? '',
+      dewormed: json['dewormed'] ?? false,
+      vaccinated: json['vaccinated'] ?? false,
+      color: json['color'] ?? '',
+      sex: json['sex'] ?? '',
+      petUrl: json['petUrl'] ?? '',
+      createdAt: json['createdAt'] ?? Timestamp.now(),
+      petId: json['petId'] ?? '',
+      uid: json['uid'] ?? '',
+    );
+  }
+
   const Pet({
     required this.petName,
     required this.animalType,
